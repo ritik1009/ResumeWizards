@@ -8,14 +8,14 @@ export const userSlice = createSlice({
 		// assigning to the variable that we will use.
     initialState:{
     personalInfo: {
-      firstName: "firstName",
-      lastName: "lastName",
-      job_position: "job_position",
-      phone_number: "phone_number",
-      email_address: "email_address",
-      city: "city",
-      country: "country",
-      summary: "summary",
+      firstName: "",
+      lastName: "",
+      job_position: "",
+      phone_number: "",
+      email_address: "",
+      city: "",
+      country: "",
+      summary: "",
     },
     links: {
       title: "Links",
@@ -92,9 +92,12 @@ export const userSlice = createSlice({
           state.course.data = action.payload.data;
           state.course.title = action.payload.title;
         },
+        getData:(state)=>{
+          return state
+        }
     }
 })
 
-export const { updatePersonalInfo,updateLink,updateSkills,updateWorkHistory,updateProjects,updateEductaion,updateCourse } = userSlice.actions;
+export const { updatePersonalInfo,updateLink,updateSkills,updateWorkHistory,updateProjects,updateEductaion,updateCourse,getData } = userSlice.actions;
 
 export default userSlice.reducer;

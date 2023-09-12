@@ -1,18 +1,20 @@
 
-const InputComponent = ({labelName,placeholder,value,updateEducations,idx}) => {
+const InputComponent = ({ labelName, elname, value, updateFunction, idx }) => {
   return (
-    <div className="formItem flex gap-1 px-10 items-center justify-between">
-      <label className=" mr-5 font-semibold">{labelName}</label>
+    <div className="formItem flex md:gap-0 lg:gap-1 px-1 md:px-3 lg:px-5 xl:px-10 items-center justify-between">
+      <label className="mr-1 md:mr-5 font-semibold text-sm sm:text-sm md:text-lg">
+        {labelName}
+      </label>
       <input
-        className="formInput px-3 py-1 w-72 bg-slate-200"
+        className="formInput text-sm md:text-lg px-2 sm:px-1 md:px-2 lg:px-3 py-1 w-fit sm:w-fit  lg:w-72 bg-slate-200  sm:text-sm"
         type="text"
-        placeholder={placeholder}
-        name={placeholder}
+        placeholder={labelName}
+        name={elname}
         value={value}
-        onChange={(e) => updateEducations(e, { idx })}
+        onChange={(e) => updateFunction(e, { idx })}
       />
     </div>
   );
-}
+};
 
 export default InputComponent

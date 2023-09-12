@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import "./form.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updatePersonalInfo } from "../states/userSlice";
 
 const PersonalInfo = ({currentPage}) => {
+  const data = useSelector((state) => state.user.personalInfo);
   const [firstName, setFirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [job_position, setJob_position] = useState("");
@@ -12,6 +13,19 @@ const PersonalInfo = ({currentPage}) => {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [summary, setSummary] = useState("");
+  useEffect(()=>{
+    console.log(data)
+    if(data){
+      setFirstName(data.firstName);
+      setlastName(data.lastName);
+      setJob_position(data.job_position);
+      setPhoneNumber(data.phoneNumber);
+      setEmail_address(data.email_address);
+      setCity(data.city);
+      setCountry(data.country)
+      setSummary(data.summary)
+    }
+  },[])
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(
@@ -19,14 +33,14 @@ const PersonalInfo = ({currentPage}) => {
         firstName: firstName,
         lastName: lastName,
         job_position: job_position,
-        phone_number: phoneNumber,
+        phoneNumber: phoneNumber,
         email_address: email_address,
         city: city,
         country: country,
         summary: summary,
       })
     );
-    currentPage("Education");
+    currentPage("Links");
   };
   return (
     <div className="form shadow-lg ">
@@ -40,6 +54,7 @@ const PersonalInfo = ({currentPage}) => {
             className="formInput  px-3 py-1 w-72 bg-slate-200"
             type="text"
             placeholder={"First Name"}
+            value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </div>
@@ -49,6 +64,7 @@ const PersonalInfo = ({currentPage}) => {
             className="formInput px-3 py-1 w-72 bg-slate-200"
             type="text"
             placeholder={"Last Name"}
+            value={lastName}
             onChange={(e) => setlastName(e.target.value)}
           />
         </div>
@@ -58,6 +74,7 @@ const PersonalInfo = ({currentPage}) => {
             className="formInput px-3 py-1 w-72 bg-slate-200"
             type="text"
             placeholder={"Frontend Devloper"}
+            value={job_position}
             onChange={(e) => setJob_position(e.target.value)}
           />
         </div>
@@ -67,6 +84,7 @@ const PersonalInfo = ({currentPage}) => {
             className="formInput px-3 py-1 w-72 bg-slate-200"
             type="text"
             placeholder={"1122334455"}
+            value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
         </div>
@@ -76,6 +94,7 @@ const PersonalInfo = ({currentPage}) => {
             className="formInput px-3 py-1 w-72 bg-slate-200"
             type="text"
             placeholder={"demo@gmail.com"}
+            value={email_address}
             onChange={(e) => setEmail_address(e.target.value)}
           />
         </div>
@@ -85,6 +104,7 @@ const PersonalInfo = ({currentPage}) => {
             className="formInput px-3 py-1 w-72 bg-slate-200"
             type="text"
             placeholder={"City"}
+            value={city}
             onChange={(e) => setCity(e.target.value)}
           />
         </div>
@@ -94,6 +114,7 @@ const PersonalInfo = ({currentPage}) => {
             className="formInput px-3 py-1 w-72 bg-slate-200"
             type="text"
             placeholder={"Country"}
+            value={country}
             onChange={(e) => setCountry(e.target.value)}
           />
         </div>
@@ -103,6 +124,7 @@ const PersonalInfo = ({currentPage}) => {
             className="formInput px-3 py-1 w-72 bg-slate-200"
             type="text"
             placeholder={"Summary"}
+            value={summary}
             onChange={(e) => setSummary(e.target.value)}
           />
         </div>

@@ -1,9 +1,14 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { updateEductaion } from "../states/userSlice";
 import InputComponent from "./InputComponent";
+import ButtonNextPrev from "./ButtonNextPrev";
+import DateInputComponent from "./DateInputComponent";
+import AddNew from "./AddNew";
 
-const Eductaion = (currentPage) => {
+const Eductaion = ({currentPage}) => {
+  const data = useSelector((state) => state.user.education.data);
+  const dispatch = useDispatch();
   const [education, setEducation] = useState([
     {
       degree: "",
@@ -15,6 +20,11 @@ const Eductaion = (currentPage) => {
       marks: "",
     },
   ]);
+  useEffect(()=>{
+    if(data.length){
+      setEducation(()=>[...data]);
+    }
+  },[])
   const addSkills = () => {
     setEducation((prevState) => [
       ...prevState,
@@ -29,26 +39,40 @@ const Eductaion = (currentPage) => {
       },
     ]);
   };
+  const removeSkills = () => {
+    setEducation(() => {
+      return education.slice(0, -1);
+    });
+  };
   const updateEducations = (e, key) => {
     let newArray = JSON.parse(JSON.stringify(education));
     newArray[key.idx][e.target.name] = e.target.value;
     setEducation(newArray);
     // setSkills([key][e.target.name] = e.target.value)
   };
-  const dispatch = useDispatch();
-  const handleClick = () => {
+  
+  const handleNextClick = () => {
     dispatch(
       updateEductaion({
         data: education,
         title: "Education",
       })
     );
-    currentPage('')
+    currentPage('Course')
 
   };
+  const handlePrevClick = () => {
+    dispatch(
+      updateEductaion({
+        data: education,
+        title: "Education",
+      })
+    );
+    currentPage("Links");
+  };
   return (
-    <div className="form shadow-lg">
-      <h1 className="text-4xl font-bold mb-8 align-middle text-start pl-10 py-5 bg-green-400 text-gray-100">
+    <div className="form shadow-lg pb-8">
+      <h1 className=" text-2xl md:text-4xl font-bold mb-4 md:mb-8 align-middle text-start pl-3 md:pl-10 py-5 bg-green-400 text-gray-100">
         Education Info
       </h1>
       <div className="formContainer ">
@@ -56,70 +80,68 @@ const Eductaion = (currentPage) => {
           return (
             <div
               key={idx}
-              className="grid grid-cols-2 gap-5 gap-y-3 text-l p-2 pb-4"
+              className="grid sm:grid-cols-2 gap-5 gap-y-3 text-l p-2 pb-4 border border-1 border-inherit"
             >
               <InputComponent
                 labelName={"Degree"}
-                placeholder={"degree"}
-                value={education.degree}
-                updateEducations={updateEducations}
+                elname={"degree"}
+                value={work.degree}
+                updateFunction={updateEducations}
                 idx={idx}
               />
               <InputComponent
                 labelName={"Subjects"}
-                placeholder={"subjects"}
-                value={education.subject}
-                updateEducations={updateEducations}
+                elname={"subject"}
+                value={work.subject}
+                updateFunction={updateEducations}
                 idx={idx}
               />
 
               <InputComponent
                 labelName={"College Name"}
                 placeholder={"collegeName"}
-                value={education.collegeName}
-                updateEducations={updateEducations}
+                elname={work.collegeName}
+                updateFunction={updateEducations}
                 idx={idx}
               />
 
               <InputComponent
                 labelName={"City"}
-                placeholder={"city"}
-                value={education.city}
-                updateEducations={updateEducations}
+                elname={"city"}
+                value={work.city}
+                updateFunction={updateEducations}
                 idx={idx}
               />
-              <InputComponent
+              <DateInputComponent
                 labelName={"Start date"}
-                placeholder={"start_date"}
-                value={education.start_date}
-                updateEducations={updateEducations}
+                elname={"start_date"}
+                value={work.start_date}
+                updateFunction={updateEducations}
                 idx={idx}
               />
-              <InputComponent
+              <DateInputComponent
                 labelName={"End date"}
-                placeholder={"end_date"}
-                value={education.end_date}
-                updateEducations={updateEducations}
+                elname={"end_date"}
+                value={work.end_date}
+                updateFunction={updateEducations}
                 idx={idx}
               />
               <InputComponent
                 labelName={"Marks"}
-                placeholder={"marks"}
-                value={education.marks}
-                updateEducations={updateEducations}
+                elname={"marks"}
+                value={work.marks}
+                updateFunction={updateEducations}
                 idx={idx}
               />
             </div>
           );
         })}
-        </div>
-        <button className="addSkill" onClick={addSkills}>
-          Add More Degree
-        </button>
-        < div className="buttonsNextPrev">
-          <button>Prev</button>
-          <button onClick={handleClick}>Next</button>
       </div>
+      <AddNew add={addSkills} remove={removeSkills} lis={education} />
+      <ButtonNextPrev
+        handlePrevClick={handlePrevClick}
+        handleNextClick={handleNextClick}
+      />
     </div>
   );
 };
