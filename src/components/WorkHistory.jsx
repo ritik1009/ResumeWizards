@@ -69,7 +69,7 @@ const WorkHistory = ({ currentPage }) => {
   };
   return (
     <div className="form shadow-lg pb-8">
-      <h1 className="text-4xl font-bold mb-8 align-middle text-start pl-10 py-5 bg-green-400 text-gray-100">
+      <h1 className="text-2xl md:text-4xl font-bold mb-4 md:mb-8 align-middle text-start pl-3 md:pl-10 py-5 bg-green-400 text-gray-100">
         Work Experince
       </h1>
       <div className="formContainer">
@@ -77,7 +77,7 @@ const WorkHistory = ({ currentPage }) => {
           return (
             <div
               key={idx}
-              className="grid grid-cols-2 gap-5 gap-y-3 text-l p-2 pb-4 border border-1 border-inherit"
+              className="grid sm:grid-cols-2 gap-5 gap-y-3 text-l p-2 pb-4 border border-1 border-inherit"
             >
               <InputComponent
                 labelName={"Position"}

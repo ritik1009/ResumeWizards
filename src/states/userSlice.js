@@ -19,9 +19,9 @@ export const userSlice = createSlice({
     },
     links: {
       title: "Links",
-      data: [
+      data: {
         
-      ],
+      },
     },
     skills: {
       title: "Skills",

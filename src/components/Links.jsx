@@ -2,78 +2,42 @@ import  { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateLink } from "../states/userSlice";
 import ButtonNextPrev from "./ButtonNextPrev";
+import InputComponent from "./InputComponent";
 
 const Links = ({ currentPage }) => {
   const data = useSelector((state) => state.user.links.data);
-  const [githubLink, setGithubLink] = useState('');
-  const [twitterLink, setTwitterLink] = useState('');
-  const [MediumLink, setMediumLink] = useState('');
-  const [linkedinbLink, setLinkedinLink] = useState('');
+  const [allLinks, setallLinks] = useState({
+    Github: "",
+    Linkedin: "",
+    Medium: "",
+    Twitter:"",
+  });
   useEffect(()=>{
-    if(data.length){
-      if(data[0].link!==""){
-        setGithubLink(data[0].link);
-      }
-      if (data[1].link !== null) {
-        console.log(data[1].link);
-        setLinkedinLink(data[1].link);
-      }
-      if (data[2].link !== "") {
-        setMediumLink(data[2].link);
-      }
-      if (data[3].link !== "") {
-        setTwitterLink(data[3].link);
-      }
+    if(data){
+      setallLinks(data)
+      console.log(allLinks)
     }
   },[])
+  const updateallLinks = (e, key) => {
+    let newArray = JSON.parse(JSON.stringify(allLinks));
+    newArray[e.target.name] = e.target.value;
+    setallLinks(newArray);
+  };
   const dispatch = useDispatch();
   const handleNextClick = () => {
     dispatch(
       updateLink({
-        data: [
-          {
-            name: "Github",
-            link: githubLink,
-          },
-          {
-            name: "Linkedin",
-            link: linkedinbLink,
-          },
-          {
-            name: "Medium",
-            link: MediumLink,
-          },
-          {
-            name: "Twitter",
-            link: twitterLink,
-          },
-        ],
+        data: allLinks,
         title: "Links",
       })
     );
     currentPage('Education')
   };
+  
   const handlePrevClick = () => {
     dispatch(
       updateLink({
-        data: [
-          {
-            name: "Github",
-            link: githubLink,
-          },
-          {
-            name: "Linkedin",
-            link: linkedinbLink,
-          },
-          {
-            name: "Medium",
-            link: MediumLink,
-          },
-          {
-            name: "Twitter",
-            link: twitterLink,
-          },
-        ],
+        data: allLinks,
         title: "Links",
       })
     );
@@ -85,54 +49,34 @@ const Links = ({ currentPage }) => {
         Links Info
       </h1>
       <div className="formContainer grid sm:grid-cols-2 gap-2 sm:gap-5 gap-y-5 sm:gap-y-10 p-2 pb-4 ">
-        <div className="formItem flex gap-3 sm:gap-1 md:gap-3 px-2 lg:px-10 items-center justify-between">
-          <label className=" mr:0 sm:mr-5 text-base flex-none font-semibold sm:text-base md:text-lg">
-            Github
-          </label>
-          <input
-            className="formInput px-2 text-base sm:px-3 py-1 w-full shrink  sm:w-40 md:w-72 bg-slate-200 sm:text-base md:text-lg"
-            type="text"
-            placeholder={"Link"}
-            value={githubLink}
-            onChange={(e) => setGithubLink(e.target.value)}
-          />
-        </div>
-        <div className="formItem flex gap-3 sm:gap-1 md:gap-3 px-2 lg:px-10 items-center justify-between">
-          <label className=" mr:0 sm:mr-5 text-base shrink-0 font-semibold sm:text-base md:text-lg">
-            Linkedin
-          </label>
-          <input
-            className="formInput px-2 text-base sm:px-3 py-1 w-full shrink-1  sm:w-40 md:w-72 bg-slate-200 sm:text-base md:text-lg"
-            type="text"
-            placeholder={"Link"}
-            value={linkedinbLink}
-            onChange={(e) => setLinkedinLink(e.target.value)}
-          />
-        </div>
-        <div className="formItem flex gap-3 sm:gap-1 md:gap-3 px-2 lg:px-10 items-center justify-between">
-          <label className=" mr:0 sm:mr-5 text-base flex-none shrink-0 font-semibold sm:text-base md:text-lg">
-            Twitter
-          </label>
-          <input
-            className="formInput px-2 text-base sm:px-3 py-1 shrink-1 w-full   sm:w-40 md:w-72 bg-slate-200 sm:text-base md:text-lg"
-            type="text"
-            placeholder={"Link"}
-            value={twitterLink}
-            onChange={(e) => setTwitterLink(e.target.value)}
-          />
-        </div>
-        <div className="formItem flex gap-3 sm:gap-1 md:gap-3 px-2 lg:px-10 items-center justify-between">
-          <label className=" mr:0 sm:mr-5 text-base flex-none shrink-0 font-semibold sm:text-base md:text-lg">
-            Medium
-          </label>
-          <input
-            className="formInput px-2 text-base sm:px-3 py-1 w-full shrink-1  sm:w-40 md:w-72 bg-slate-200 sm:text-base md:text-lg"
-            type="text"
-            placeholder={"Link"}
-            value={MediumLink}
-            onChange={(e) => setMediumLink(e.target.value)}
-          />
-        </div>
+        <InputComponent
+          labelName={"Github"}
+          elname={"Github"}
+          value={allLinks.Github}
+          updateFunction={updateallLinks}
+          idx={""}
+        />
+        <InputComponent
+          labelName={"Linkedin"}
+          elname={"Linkedin"}
+          value={allLinks.Linkedin}
+          updateFunction={updateallLinks}
+          idx={""}
+        />
+        <InputComponent
+          labelName={"Twitter"}
+          elname={"Twitter"}
+          value={allLinks.Twitter}
+          updateFunction={updateallLinks}
+          idx={""}
+        />
+        <InputComponent
+          labelName={"Medium"}
+          elname={"Medium"}
+          value={allLinks.Medium}
+          updateFunction={updateallLinks}
+          idx={""}
+        />
       </div>
       <ButtonNextPrev
         handlePrevClick={handlePrevClick}

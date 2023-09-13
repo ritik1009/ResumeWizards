@@ -52,7 +52,7 @@ const Skills = ({ currentPage }) => {
   };
   return (
     <div className="form shadow-lg pb-8">
-      <h1 className="text-4xl font-bold mb-8 align-middle text-start pl-10 py-5 bg-green-400 text-gray-100">
+      <h1 className="text-2xl md:text-4xl font-bold mb-4 md:mb-8 align-middle text-start pl-3 md:pl-10 py-5 bg-green-400 text-gray-100">
         Skills Info
       </h1>
       <div className="formContainer">
@@ -60,7 +60,7 @@ const Skills = ({ currentPage }) => {
           return (
             <div
               key={idx}
-              className="grid grid-cols-2 gap-5 gap-y-3 text-l p-2 pb-4 border border-1 border-inherit"
+              className="grid sm:grid-cols-2 gap-5 gap-y-3 text-l p-2 pb-4 border border-1 border-inherit"
             >
               <InputComponent
                 labelName={"Skill Name"}
@@ -69,12 +69,14 @@ const Skills = ({ currentPage }) => {
                 updateFunction={updateSkill}
                 idx={idx}
               />
-              <div className="formItem flex gap-1 px-10 items-center justify-between">
-                <label className=" mr-5 font-semibold">Rating</label>
+              <div className="formItem flex md:gap-0 lg:gap-1 px-1 md:px-3 lg:px-5 xl:px-10 items-center justify-between">
+                <label className="mr-1 md:mr-5 font-semibold text-sm sm:text-sm md:text-lg">
+                  Rating
+                </label>
                 <input
-                  className="formInput px-3 py-1 w-72 bg-slate-200"
+                  className="formInput text-sm md:text-lg px-2 sm:px-1 md:px-2 lg:px-3 py-1 w-1/2 sm:w-fit  lg:w-72 bg-slate-200  sm:text-sm"
                   type="number"
-                  placeholder={"0"}
+                  placeholder={"5"}
                   name="rating"
                   min={0}
                   max={5}

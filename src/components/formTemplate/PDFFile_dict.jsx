@@ -293,7 +293,7 @@ const PDFFile = () => {
               <Text style={styles.text}>{data.personalInfo.phone_number}</Text>
               <Text style={styles.text}>{data.personalInfo.email_address}</Text>
               <Text style={styles.subHeading}>Links</Text>
-              {data.links.data.map((links, idx) => {
+              {/* {data.links.data.map((links, idx) => {
                 return (
                   <Link
                     key={idx}
@@ -302,6 +302,18 @@ const PDFFile = () => {
                   >
                     {links.name}
                   </Link>
+                );
+              })} */}
+              {Object.keys(data.links.data).map((key,idx)=>{
+                return (
+                  data.links.data[key]?
+                  <Link
+                    key={idx}
+                    src={data.links.data[key]}
+                    style={[styles.text, styles.link]}
+                  >
+                    {key}
+                  </Link>:null
                 );
               })}
 
