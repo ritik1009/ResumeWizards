@@ -108,9 +108,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const PDFFile = () => {
+const PDFFile = ({data}) => {
   // console.log(data)
-  const data = useSelector((state) => state.user);
+  // const data_ = useSelector((state) => state.user);
   // console.log(data_)
   const data_ = {
     personalInfo: {
@@ -233,7 +233,7 @@ const PDFFile = () => {
   };
   // lastName = data.lastName;
   return (
-    <PDFViewer style={styles.viewer} showToolbar={false}>
+    // <PDFViewer style={styles.viewer} showToolbar={false}>
       <Document>
         <Page style={styles.body}>
           <View style={{ flexDirection: "row" }}>
@@ -455,7 +455,7 @@ const PDFFile = () => {
           </View>
         </Page>
       </Document>
-    </PDFViewer>
+    // </PDFViewer>
   );
 };
 
