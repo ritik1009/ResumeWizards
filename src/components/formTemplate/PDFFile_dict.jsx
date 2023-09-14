@@ -108,11 +108,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const PDFFile = ({data}) => {
+const PDFFile = ({data_}) => {
   // console.log(data)
   // const data_ = useSelector((state) => state.user);
   // console.log(data_)
-  const data_ = {
+  const data = {
     personalInfo: {
       firstName: "Ritik",
       lastName: "Khandelwal",
