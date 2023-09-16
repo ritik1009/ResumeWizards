@@ -8,7 +8,7 @@ import ButtonNextPrev from "./ButtonNextPrev";
 import AddNew from "./AddNew";
 
 const Projects = ({ currentPage }) => {
-  const data = useSelector((state) => state.user.Projects.data);
+  const data = useSelector((state) => state.user.resumeData.Projects.data);
   const [Project, setProject] = useState([
     {
       name: "",

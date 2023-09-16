@@ -9,10 +9,14 @@ import FinalPdf from '../components/FinalPdf';
 import Links from '../components/Links';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { useSelector } from 'react-redux';
+import { addResume } from '../Firebase/firestore';
 
 const ResumeForm = () => {
+  const data = useSelector((state) => state.user.resumeData);
+  const user_id = useSelector((state) => state.user.currentUser.uid);
     const [currentPage, setCurrentPage] = useState("PersonalInfo");
-    function page() {
+    async function page() {
       if (currentPage == "PersonalInfo") {
         return <PersonalInfo currentPage={setCurrentPage} />;
       } else if (currentPage == "Education") {
@@ -26,8 +30,10 @@ const ResumeForm = () => {
       } else if (currentPage == "Skills") {
         return <Skills currentPage={setCurrentPage} />;
       } else if (currentPage == "Completed") {
+        await addResume(user_id, "demo", data);
         return <FinalPdf />;
       } else if (currentPage == "Links") {
+        
         return <Links currentPage={setCurrentPage} />;
       }
     }

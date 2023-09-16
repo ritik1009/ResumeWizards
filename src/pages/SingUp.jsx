@@ -1,16 +1,21 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { signUpRedux } from "../Firebase/firebase";
+import { db, signUpRedux } from "../Firebase/firebase";
+import { addDoc } from "@firebase/firestore";
+import { addUser } from "../Firebase/firestore";
+import { bool, object } from "prop-types";
 
 const SingUp = () => {
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
+  const nameRef = useRef();
   const[error,setError] = useState('');
   const [loading,setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
 
   // Handeling the submit button
   async function handleSubmit(e){
@@ -29,9 +34,15 @@ const SingUp = () => {
         passwordRef.current.value,
         dispatch
       );
-      if(res){
+      console.log("User - ",res._delegate.uid)
+      if(typeof res ==='boolean'){
         throw new Error("Your Credentials is not correct");
       }else{
+        await addUser(
+          res._delegate.uid,
+          nameRef.current.value,
+          emailRef.current.value
+        );
         navigate("/home");
       }
     }catch{
@@ -45,6 +56,20 @@ const SingUp = () => {
       <h1 className="text-center text-3xl font-bold">SingUp</h1>
       <form className="flex flex-col gap-5 w-2/3 p-2" onSubmit={handleSubmit}>
         {error ? <p>{error}</p> : null}
+        <div className="flex flex-col gap-3 justify-between">
+          <label
+            htmlFor="name"
+            className="text-xl font-semibold text-gray-700"
+          >
+            Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            ref={nameRef}
+            className="bg-gray-200 h-9 p-2"
+          />
+        </div>
         <div className="flex flex-col gap-3 justify-between">
           <label
             htmlFor="email"

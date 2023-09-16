@@ -1,16 +1,7 @@
-// Import the functions you need from the SDKs you need
-// import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// console.log(import.meta.env.VITE_SOME_KEY)
-
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import { updateError, updateStart, updateUserCredentials } from "../states/userSlice";
+import {getFirestore} from "@firebase/firestore"
 
 console.log(import.meta.env.VITE_apiKey)
 const firebaseConfig = {
@@ -23,10 +14,19 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_measurementId,
 };
 
+
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 
 export default app;
+
+// This is for databse
+export const db = getFirestore(app);
+
+
+
+
+// This is for authentication
 
 export const loginRedux = async(email,password,dispatch)=>{
   dispatch(updateStart());
@@ -45,8 +45,8 @@ export const signUpRedux = async (email, password, dispatch) => {
   dispatch(updateStart());
   try {
     const res = await auth.createUserWithEmailAndPassword(email, password);
-    dispatch(updateUserCredentials(res.user));
-    return false;
+    dispatch(updateUserCredentials(res.user._delegate));
+    return res.user;
   } catch (error) {
     dispatch(updateError());
     return true;

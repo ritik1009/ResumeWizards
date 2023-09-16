@@ -8,7 +8,7 @@ import AddNew from './AddNew';
 import ButtonNextPrev from './ButtonNextPrev';
 
 const WorkHistory = ({ currentPage }) => {
-  const data = useSelector((state) => state.user.work_History.data);
+  const data = useSelector((state) => state.user.resumeData.work_History.data);
   const [workHistory, setWorkHistory] = useState([
     {
       position: "",

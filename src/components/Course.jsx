@@ -8,7 +8,7 @@ import ButtonNextPrev from './ButtonNextPrev';
 import AddNew from './AddNew';
 
 const Course = ({currentPage}) => {
-  const data = useSelector((state) => state.user.course.data);
+  const data = useSelector((state) => state.user.resumeData.course.data);
   const [course, setCourse] = useState([
     {
       name: "",

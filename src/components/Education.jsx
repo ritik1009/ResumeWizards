@@ -7,7 +7,7 @@ import DateInputComponent from "./DateInputComponent";
 import AddNew from "./AddNew";
 
 const Eductaion = ({currentPage}) => {
-  const data = useSelector((state) => state.user.education.data);
+  const data = useSelector((state) => state.user.resumeData.education.data);
   const dispatch = useDispatch();
   const [education, setEducation] = useState([
     {

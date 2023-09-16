@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { auth } from "../Firebase/firebase"
-import { getDefaultMiddleware } from '@reduxjs/toolkit';
 
 //Here we creating a user Slice that will act as a model for our store which will contain the variables and the functions 
 export const userSlice = createSlice({
@@ -12,7 +10,8 @@ export const userSlice = createSlice({
       currentUser:{},
       pending:false,
       error:false,
-    personalInfo: {
+      resumeData:{
+        personalInfo: {
       firstName: "",
       lastName: "",
       job_position: "",
@@ -55,6 +54,8 @@ export const userSlice = createSlice({
       data: [
       ],
     },
+      },
+    
   },
 		// The reducers will contain our function that is responsible for the updation 
 		// of the data using this function we can update the value of the variables.
@@ -63,39 +64,42 @@ export const userSlice = createSlice({
 		// In this we are passing to params i.e. state and action. The state contains the present data
 		// The action contains the data that we want to update i.e action contains the payload that
 		// That will contain the data that the user has passed and will be used to update.
+        updateResumeData:(state,action)=>{
+          state.resumeData = action.payload.data
+        },
         updatePersonalInfo:(state,action)=>{
-            state.personalInfo.firstName = action.payload.firstName;
-            state.personalInfo.lastName = action.payload.lastName;
-            state.personalInfo.city = action.payload.city;
-            state.personalInfo.country = action.payload.country;
-            state.personalInfo.phone_number = action.payload.phone_number;
-            state.personalInfo.job_position = action.payload.job_position;
-            state.personalInfo.summary = action.payload.summary;
-            state.personalInfo.email_address = action.payload.email_address;
+            state.resumeData.personalInfo.firstName = action.payload.firstName;
+            state.resumeData.personalInfo.lastName = action.payload.lastName;
+            state.resumeData.personalInfo.city = action.payload.city;
+            state.resumeData.personalInfo.country = action.payload.country;
+            state.resumeData.personalInfo.phone_number = action.payload.phone_number;
+            state.resumeData.personalInfo.job_position = action.payload.job_position;
+            state.resumeData.personalInfo.summary = action.payload.summary;
+            state.resumeData.personalInfo.email_address = action.payload.email_address;
         },
         updateLink:(state,action)=>{
-          state.links.data = action.payload.data;
-          state.links.title = action.payload.title;
+          state.resumeData.links.data = action.payload.data;
+          state.resumeData.links.title = action.payload.title;
         },
         updateSkills:(state,action)=>{
-          state.skills.data = action.payload.data;
-          state.skills.title = action.payload.title;
+          state.resumeData.skills.data = action.payload.data;
+          state.resumeData.skills.title = action.payload.title;
         },
         updateWorkHistory:(state,action)=>{
-          state.work_History.data = action.payload.data;
-          state.work_History.title = action.payload.title;
+          state.resumeData.work_History.data = action.payload.data;
+          state.resumeData.work_History.title = action.payload.title;
         },
         updateProjects:(state,action)=>{
-          state.Projects.data = action.payload.data;
-          state.Projects.title = action.payload.title;
+          state.resumeData.Projects.data = action.payload.data;
+          state.resumeData.Projects.title = action.payload.title;
         },
         updateEductaion:(state,action)=>{
-          state.education.data = action.payload.data;
-          state.education.title = action.payload.title;
+          state.resumeData.education.data = action.payload.data;
+          state.resumeData.education.title = action.payload.title;
         },
         updateCourse:(state,action)=>{
-          state.course.data = action.payload.data;
-          state.course.title = action.payload.title;
+          state.resumeData.course.data = action.payload.data;
+          state.resumeData.course.title = action.payload.title;
         },
         updateStart:(state)=>{
           state.pending=true
@@ -112,29 +116,9 @@ export const userSlice = createSlice({
         getError:(state)=>{
           return state.error
         }
-        // loginredux:(state,action)=>{
-        //   auth.signInWithEmailAndPassword(action.payload.email, action.payload.password)
-        //   .then((userCredential)=>{
-            
-        //     state.currentUser = userCredential.user
-        //     console.log("UserCCCC",userCredential)
-        //   })
-        // return state.currentUser
-        // },
-        // singupredux:(state,action)=>{
-        //   auth.createUserWithEmailAndPassword(action.payload.email, action.payload.password)
-        //   .then((userCredential)=>{
-        //     state.currentUser = userCredential.user
-        //   })
-        //   return state.currentUser
-        // //   auth.onAuthStateChanged(user => {
-        // //     console.log("the data inside the user",user)
-        // //     state.currentUser =user
-        // // })
-        // },
     }
 })
 
-export const { updatePersonalInfo,updateLink,updateSkills,updateWorkHistory,updateProjects,updateEductaion,updateCourse,updateStart,updateError,updateUserCredentials,getError } = userSlice.actions;
+export const { updatePersonalInfo,updateLink,updateSkills,updateWorkHistory,updateProjects,updateEductaion,updateCourse,updateStart,updateError,updateUserCredentials,getError,updateResumeData } = userSlice.actions;
 
 export default userSlice.reducer;

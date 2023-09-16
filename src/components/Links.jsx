@@ -5,7 +5,7 @@ import ButtonNextPrev from "./ButtonNextPrev";
 import InputComponent from "./InputComponent";
 
 const Links = ({ currentPage }) => {
-  const data = useSelector((state) => state.user.links.data);
+  const data = useSelector((state) => state.user.resumeData.links.data);
   const [allLinks, setallLinks] = useState({
     Github: "",
     Linkedin: "",

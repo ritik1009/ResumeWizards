@@ -7,7 +7,7 @@ import TextInputComponent from './TextInputComponent';
 import ButtonNextPrev from './ButtonNextPrev';
 
 const PersonalInfo = ({currentPage}) => {
-  const data = useSelector((state) => state.user.personalInfo);
+  const data = useSelector((state) => state.user.resumeData.personalInfo);
   const [personalInfo, setPersonalInfo] = useState({
     firstName: "",
     lastName: "",
