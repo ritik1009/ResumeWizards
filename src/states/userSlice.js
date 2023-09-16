@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { auth } from "../Firebase/firebase"
+import { getDefaultMiddleware } from '@reduxjs/toolkit';
 
 //Here we creating a user Slice that will act as a model for our store which will contain the variables and the functions 
 export const userSlice = createSlice({
@@ -7,6 +9,9 @@ export const userSlice = createSlice({
 		// Then we are setting the initial values of the variable we will be 
 		// assigning to the variable that we will use.
     initialState:{
+      currentUser:{},
+      pending:false,
+      error:false,
     personalInfo: {
       firstName: "",
       lastName: "",
@@ -92,12 +97,44 @@ export const userSlice = createSlice({
           state.course.data = action.payload.data;
           state.course.title = action.payload.title;
         },
-        getData:(state)=>{
-          return state
+        updateStart:(state)=>{
+          state.pending=true
+          state.error =false
+        },
+        updateError:(state)=>{
+            state.error = true;
+            state.pending=false;
+        },
+        updateUserCredentials:(state,action)=>{
+            state.pending = false;
+            state.currentUser = action.payload
+        },
+        getError:(state)=>{
+          return state.error
         }
+        // loginredux:(state,action)=>{
+        //   auth.signInWithEmailAndPassword(action.payload.email, action.payload.password)
+        //   .then((userCredential)=>{
+            
+        //     state.currentUser = userCredential.user
+        //     console.log("UserCCCC",userCredential)
+        //   })
+        // return state.currentUser
+        // },
+        // singupredux:(state,action)=>{
+        //   auth.createUserWithEmailAndPassword(action.payload.email, action.payload.password)
+        //   .then((userCredential)=>{
+        //     state.currentUser = userCredential.user
+        //   })
+        //   return state.currentUser
+        // //   auth.onAuthStateChanged(user => {
+        // //     console.log("the data inside the user",user)
+        // //     state.currentUser =user
+        // // })
+        // },
     }
 })
 
-export const { updatePersonalInfo,updateLink,updateSkills,updateWorkHistory,updateProjects,updateEductaion,updateCourse,getData } = userSlice.actions;
+export const { updatePersonalInfo,updateLink,updateSkills,updateWorkHistory,updateProjects,updateEductaion,updateCourse,updateStart,updateError,updateUserCredentials,getError } = userSlice.actions;
 
 export default userSlice.reducer;
