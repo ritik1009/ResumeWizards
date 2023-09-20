@@ -61,7 +61,7 @@ const Course = ({currentPage}) => {
     })
   }
   const updateCourses = (e, key) => {
-    const newArray = [...course];
+    let newArray = JSON.parse(JSON.stringify(course));
     console.log("Inside the updateCourse",key.idx,e.target.name)
     if (e.target.name === "Github") {
       newArray[key.idx]["links"][0].link = e.target.value;

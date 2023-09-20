@@ -8,7 +8,7 @@ import AddNew from "./elements/AddNew";
 import Save from './elements/Save';
 
 const FPProjects = () => {
-  const data = useSelector((state) => state.user.Projects.data);
+  const data = useSelector((state) => state.user.resumeData.Projects.data);
   const [Project, setProject] = useState([
     {
       name: "",

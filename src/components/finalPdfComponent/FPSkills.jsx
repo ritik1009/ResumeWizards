@@ -6,7 +6,7 @@ import AddNew from "./elements/AddNew";
 import Save from "./elements/Save";
 
 const FPSkills = () => {
-  const data = useSelector((state) => state.user.skills.data);
+  const data = useSelector((state) => state.user.resumeData.skills.data);
   const [skills, setSkills] = useState([{ name: "", rating: 0 }]);
   const addSkills = () => {
     setSkills((prevState) => [...prevState, { name: "", rating: 0 }]);

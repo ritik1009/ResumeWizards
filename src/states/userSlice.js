@@ -10,6 +10,8 @@ export const userSlice = createSlice({
       currentUser:{},
       pending:false,
       error:false,
+      resumeName:'',
+      templateName:'',
       resumeData:{
         personalInfo: {
       firstName: "",
@@ -76,6 +78,7 @@ export const userSlice = createSlice({
             state.resumeData.personalInfo.job_position = action.payload.job_position;
             state.resumeData.personalInfo.summary = action.payload.summary;
             state.resumeData.personalInfo.email_address = action.payload.email_address;
+            state.resumeData.personalInfo.profileImage = action.payload.profileImage
         },
         updateLink:(state,action)=>{
           state.resumeData.links.data = action.payload.data;
@@ -115,10 +118,14 @@ export const userSlice = createSlice({
         },
         getError:(state)=>{
           return state.error
+        },
+        updateResumeName:(state,action)=>{
+          state.resumeName = action.payload.resumeName
+          state.templateName = action.payload.templateName
         }
     }
 })
 
-export const { updatePersonalInfo,updateLink,updateSkills,updateWorkHistory,updateProjects,updateEductaion,updateCourse,updateStart,updateError,updateUserCredentials,getError,updateResumeData } = userSlice.actions;
+export const { updatePersonalInfo,updateLink,updateSkills,updateWorkHistory,updateProjects,updateEductaion,updateCourse,updateStart,updateError,updateUserCredentials,getError,updateResumeData,updateResumeName } = userSlice.actions;
 
 export default userSlice.reducer;

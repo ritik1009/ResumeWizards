@@ -5,7 +5,7 @@ import InputComponent from './elements/InputComponent';
 import Save from './elements/Save';
 
 const FPLink = () => {
-  const data = useSelector((state) => state.user.links.data);
+  const data = useSelector((state) => state.user.resumeData.links.data);
   const [allLinks, setallLinks] = useState({
     Github: "",
     Linkedin: "",

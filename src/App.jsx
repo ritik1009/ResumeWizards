@@ -29,10 +29,14 @@ function App() {
       <div className="min-h-screen flex justify-between flex-col">
         <Navbar />
         <Routes>
+          <Route path="/" element={<Navigate replace to="/home" />} />
           <Route
+            exact
+            index
             path="/home"
             element={loggedIn ? <Home /> : <Navigate replace to="/login" />}
           />
+
           <Route
             path="/resumeForm"
             element={
@@ -43,7 +47,9 @@ function App() {
           <Route path="/signUp" element={<SingUp />} />
           <Route
             path="/templates"
-            element={loggedIn ? <Templates /> : <Navigate replace to="/login" />}
+            element={
+              loggedIn ? <Templates /> : <Navigate replace to="/login" />
+            }
           />
         </Routes>
         <div className="self-end">

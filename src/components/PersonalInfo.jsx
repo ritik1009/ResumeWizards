@@ -8,6 +8,7 @@ import ButtonNextPrev from './ButtonNextPrev';
 
 const PersonalInfo = ({currentPage}) => {
   const data = useSelector((state) => state.user.resumeData.personalInfo);
+  console.log("Indide PersonalInfo 1")
   const [personalInfo, setPersonalInfo] = useState({
     firstName: "",
     lastName: "",
@@ -24,6 +25,7 @@ const PersonalInfo = ({currentPage}) => {
       setPersonalInfo(data)
     }
   },[])
+  console.log("Indide PersonalInfo 2");
   const dispatch = useDispatch();
   const updatePersnalInfo = (e,key)=>{
     let newArray = JSON.parse(JSON.stringify(personalInfo));
@@ -38,6 +40,7 @@ const PersonalInfo = ({currentPage}) => {
     );
     currentPage("Links");
   };
+  console.log("Indide PersonalInfo 3");
   return (
     <div className="form shadow-lg pb-8">
       <h1 className="text-2xl md:text-4xl font-bold mb-4 md:mb-8 align-middle text-start pl-3 md:pl-10 py-5 bg-green-400 text-gray-100">
@@ -67,8 +70,8 @@ const PersonalInfo = ({currentPage}) => {
         />
         <InputComponent
           labelName={"Phone Number"}
-          elname={"phoneNumber"}
-          value={personalInfo.phoneNumber}
+          elname={"phone_number"}
+          value={personalInfo.phone_number}
           updateFunction={updatePersnalInfo}
           idx={""}
         />

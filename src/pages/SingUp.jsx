@@ -1,10 +1,8 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { db, signUpRedux } from "../Firebase/firebase";
-import { addDoc } from "@firebase/firestore";
+import {signUpRedux } from "../Firebase/firebase";
 import { addUser } from "../Firebase/firestore";
-import { bool, object } from "prop-types";
 
 const SingUp = () => {
   const emailRef = useRef()

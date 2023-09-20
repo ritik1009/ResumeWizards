@@ -99,8 +99,8 @@ const Eductaion = ({currentPage}) => {
 
               <InputComponent
                 labelName={"College Name"}
-                placeholder={"collegeName"}
-                elname={work.collegeName}
+                elname={"collegeName"}
+                value={work.collegeName}
                 updateFunction={updateEducations}
                 idx={idx}
               />

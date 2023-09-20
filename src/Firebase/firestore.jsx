@@ -33,10 +33,11 @@ export const getResume = async(id)=>{
 
 
 // Saving the data in the database
-export const addResume = async (id, name,resumedata) => {
+export const addResume = async (id, name,tempalteName,resumedata) => {
   await addDoc(resumeCollectionRef, {
     user_id: id,
     name: name,
+    templateName:tempalteName,
     resume: resumedata,
   });
 };

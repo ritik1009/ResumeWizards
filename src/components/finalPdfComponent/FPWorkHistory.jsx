@@ -8,7 +8,7 @@ import AddNew from './elements/AddNew';
 import Save from './elements/Save';
 
 const FPWorkHistory = () => {
-  const data = useSelector((state) => state.user.work_History.data);
+  const data = useSelector((state) => state.user.resumeData.work_History.data);
   const [workHistory, setWorkHistory] = useState([
     {
       position: "",

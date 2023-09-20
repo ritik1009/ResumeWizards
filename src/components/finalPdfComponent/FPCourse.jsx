@@ -8,7 +8,7 @@ import AddNew from './elements/AddNew';
 import Save from './elements/Save';
 
 const FPCourse = () => {
-  const data = useSelector((state) => state.user.course.data);
+  const data = useSelector((state) => state.user.resumeData.course.data);
   const [course, setCourse] = useState([
     {
       name: "",

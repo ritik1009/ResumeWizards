@@ -7,6 +7,7 @@ import { addResume, getResume, getUser } from '../Firebase/firestore';
 const Home = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const[users,setUsers] = useState([]);
+  
   const[resumeData,setResumeData] = useState([])
   useEffect(()=>{
     const getUserdata = async()=>{

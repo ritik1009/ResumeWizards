@@ -5,9 +5,10 @@ import { updatePersonalInfo } from "../../states/userSlice";
 import InputComponent from "./elements/InputComponent";
 import TextInputComponent from "./elements/TextInputComponent";
 import Save from "./elements/Save";
+import ImageComponent from "./elements/ImageComponent";
 // import ButtonNextPrev from "./elements/ButtonNextPrev";
 const FPPersonalInfo = () => {
-  const data = useSelector((state) => state.user.personalInfo);
+  const data = useSelector((state) => state.user.resumeData.personalInfo);
   const [personalInfo, setPersonalInfo] = useState({
     firstName: "",
     lastName: "",
@@ -32,13 +33,22 @@ const FPPersonalInfo = () => {
   }
   const handleClick = () => {
     console.log("BUtton Clicked")
-    console.log("data",data)
+    console.log("data",personalInfo)
     dispatch(
       updatePersonalInfo(
       personalInfo
       )
     );
   };
+  const handleFile = (e)=>{
+    let newArray = JSON.parse(JSON.stringify(personalInfo));
+    console.log("Thsi is the File update", newArray);
+    const file = e.target.files[0];
+    const localImageUrl = window.URL.createObjectURL(file);
+    newArray[e.target.name] = localImageUrl;
+    console.log("Thsi is the File update",newArray)
+    setPersonalInfo(newArray)
+  }
   return (
     <div className="form shadow-lg pb-8 w-[90%] ">
       <h1 className="text-3xl  font-bold mb-4 align-middle text-start pl-10 py-5 bg-green-400 text-gray-100">
@@ -68,8 +78,8 @@ const FPPersonalInfo = () => {
         />
         <InputComponent
           labelName={"Phone Number"}
-          elname={"phoneNumber"}
-          value={personalInfo.phoneNumber}
+          elname={"phone_number"}
+          value={personalInfo.phone_number}
           updateFunction={updatePersnalInfo}
           idx={""}
         />
@@ -101,8 +111,14 @@ const FPPersonalInfo = () => {
           updateFunction={updatePersnalInfo}
           idx={""}
         />
+        <ImageComponent
+          labelName={"Profile Image"}
+          elname={"profileImage"}
+          // value={personalInfo.profileImage}
+          updateFunction={handleFile}
+        />
       </div>
-      <Save handleClick={handleClick}/>
+      <Save handleClick={handleClick} />
       {/* <ButtonNextPrev handleNextClick={handleNextClick} /> */}
     </div>
   );

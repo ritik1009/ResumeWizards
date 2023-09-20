@@ -7,7 +7,7 @@ import AddNew from "./elements/AddNew";
 import Save from "./elements/Save";
 
 const FPEductaion = () => {
-  const data = useSelector((state) => state.user.education.data);
+  const data = useSelector((state) => state.user.resumeData.education.data);
   const dispatch = useDispatch();
   const [education, setEducation] = useState([
     {

@@ -108,11 +108,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const PDFFile = ({data_}) => {
+const Template_1 = ({data}) => {
   // console.log(data)
   // const data_ = useSelector((state) => state.user);
   // console.log(data_)
-  const data = {
+  const data_ = {
     personalInfo: {
       firstName: "Ritik",
       lastName: "Khandelwal",
@@ -459,4 +459,4 @@ const PDFFile = ({data_}) => {
   );
 };
 
-export default PDFFile;
+export default Template_1;
