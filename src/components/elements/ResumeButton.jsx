@@ -1,7 +1,7 @@
 // import PDFFile from "./formTemplate/PDFFile_dict";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { updateResumeData } from "../states/userSlice";
+import { updateResumeData } from "../../states/userSlice";
 import { useState } from "react";
 const ResumeButton = ({data}) => {
     const [options,setOptions] = useState(false)

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSkills } from "../states/userSlice";
-import InputComponent from "./InputComponent";
-import ButtonNextPrev from "./ButtonNextPrev";
-import AddNew from "./AddNew";
+import { updateSkills } from "../../states/userSlice";
+import ButtonNextPrev from "../elements/ButtonNextPrev";
+import AddNew from "../elements/AddNew";
+import InputComponent from "../elements/InputComponent";
 import { useNavigate } from "react-router-dom";
 
 const Skills = ({ currentPage }) => {

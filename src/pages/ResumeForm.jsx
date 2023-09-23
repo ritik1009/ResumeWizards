@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react'
-import PersonalInfo from '../components/PersonalInfo';
-import Eductaion from '../components/Education';
-import Course from '../components/Course';
-import WorkHistory from '../components/WorkHistory';
-import Projects from '../components/Projects';
-import Skills from '../components/Skills';
-import FinalPdf from '../components/FinalPdf';
-import Links from '../components/Links';
+import PersonalInfo from '../components/formPages/PersonalInfo';
+import Eductaion from '../components/formPages/Education';
+import Course from '../components/formPages/Course';
+import WorkHistory from '../components/formPages/WorkHistory';
+import Projects from '../components/formPages/Projects';
+import Skills from '../components/formPages/Skills';
+import Links from '../components/formPages/Links';
 import { useDispatch, useSelector } from 'react-redux';
-import { addResume } from '../Firebase/firestore';
-import ResumeName from '../components/ResumeName';
+import ResumeName from '../components/formPages/ResumeName';
 
 const ResumeForm = () => {
   const data = useSelector((state) => state.user.resumeData);

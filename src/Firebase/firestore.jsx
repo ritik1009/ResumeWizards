@@ -35,9 +35,6 @@ export const getResume = async(id)=>{
 // Updating the Document
 export const updateDocument = async (docId, updatedData) => {
   try {
-    console.log("DocumentId",docId)
-    docId = "zal6vr6O2mQR5CMs73J7";
-    console.log("The Document",updatedData)
     const docRef = doc(db,"resumeData", docId);
     // Use the update method to update the document with new data
     await updateDoc(docRef, updatedData);
@@ -50,7 +47,6 @@ export const updateDocument = async (docId, updatedData) => {
 // Saving the data in the database
 export const addResume = async (id, name, tempalteName, resumedata,dispatch) => {
   const doc_id = await addResumeFunc(id, name, tempalteName, resumedata);
-  console.log("This is the Doc_id -------------",doc_id)
   dispatch(updateId({id:doc_id}));
 }; 
 const addResumeFunc = (id, name,tempalteName,resumedata) => {

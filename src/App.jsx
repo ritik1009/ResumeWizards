@@ -14,7 +14,7 @@ import SingUp from "./pages/SingUp";
 import Templates from "./pages/Templates";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import FinalPdf from "./components/FinalPdf";
+import FinalPdf from "./components/formPages/FinalPdf";
 
 function App() {
   const [loggedIn,setLoggedIn] = useState(false)

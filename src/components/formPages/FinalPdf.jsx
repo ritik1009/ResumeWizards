@@ -1,16 +1,16 @@
 import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
-import Template_1 from './formTemplate/Template_1'
-import FPPersonalInfo from './finalPdfComponent/FPPersonalInfo';
-import FPLink from './finalPdfComponent/FPLink';
-import FPEductaion from './finalPdfComponent/FPEducation';
-import FPWorkHistory from './finalPdfComponent/FPWorkHistory';
-import FPCourse from './finalPdfComponent/FPCourse';
-import FPProjects from './finalPdfComponent/FPProjects';
-import FPSkills from './finalPdfComponent/FPSkills';
+import Template_1 from '../formTemplate/Template_1'
+import FPPersonalInfo from '../finalPdfComponent/FPPersonalInfo';
+import FPLink from '../finalPdfComponent/FPLink';
+import FPEductaion from '../finalPdfComponent/FPEducation';
+import FPWorkHistory from '../finalPdfComponent/FPWorkHistory';
+import FPCourse from '../finalPdfComponent/FPCourse';
+import FPProjects from '../finalPdfComponent/FPProjects';
+import FPSkills from '../finalPdfComponent/FPSkills';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { addResume } from "../Firebase/firestore";
-import { updateResume } from "../states/userSlice";
+import { addResume } from "../../Firebase/firestore";
+import { updateResume } from "../../states/userSlice";
 
 const FinalPdf = () => {
   const data = useSelector((state) => state.user.resumeData);
@@ -26,7 +26,7 @@ const FinalPdf = () => {
     }
   },[user_id])
   return (
-    <div>
+    <div className=" w-11/12 mx-auto">
       <div className="flex gap-3">
         <div className="w-3/4 grid gap-y-2 overflow-y-scroll h-screen">
           <FPPersonalInfo />
@@ -54,7 +54,9 @@ const FinalPdf = () => {
               Loading document...
             </p>
           ) : (
-            <p className="w-full bg-green-500 text-xl p-3 text-white mt-4 text-center font-bold">Download now!</p>
+            <p className="w-full bg-green-500 text-xl p-3 text-white mt-4 text-center font-bold">
+              Download now!
+            </p>
           )
         }
       </PDFDownloadLink>

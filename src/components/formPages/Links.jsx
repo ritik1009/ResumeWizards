@@ -1,8 +1,8 @@
 import  { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateLink } from "../states/userSlice";
-import ButtonNextPrev from "./ButtonNextPrev";
-import InputComponent from "./InputComponent";
+import { updateLink } from "../../states/userSlice";
+import ButtonNextPrev from "../elements/ButtonNextPrev";
+import InputComponent from "../elements/InputComponent";
 
 const Links = ({ currentPage }) => {
   const data = useSelector((state) => state.user.resumeData.links.data);
@@ -15,7 +15,6 @@ const Links = ({ currentPage }) => {
   useEffect(()=>{
     if(data){
       setallLinks(data)
-      console.log(allLinks)
     }
   },[])
   const updateallLinks = (e, key) => {

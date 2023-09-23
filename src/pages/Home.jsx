@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import ResumeButton from '../components/ResumeButton';
-import { db } from '../Firebase/firebase';
+import ResumeButton from '../components/elements/ResumeButton';
 import { useSelector } from 'react-redux';
-import { addResume, getResume, getUser } from '../Firebase/firestore';
+import { getResume, getUser } from '../Firebase/firestore';
 
 const Home = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -14,7 +13,6 @@ const Home = () => {
       const user_data = await getUser(currentUser.uid);
       setUsers(user_data)
       const resume_data = await getResume(currentUser.uid)
-      console.log("Ressss----",resume_data)
       setResumeData(resume_data)
     }
     getUserdata();

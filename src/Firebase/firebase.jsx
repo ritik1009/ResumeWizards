@@ -5,7 +5,6 @@ import 'firebase/compat/storage'
 import { updateError, updateStart, updateUserCredentials } from "../states/userSlice";
 import {getFirestore} from "@firebase/firestore"
 
-console.log(import.meta.env.VITE_apiKey)
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_apiKey,
   authDomain: import.meta.env.VITE_authDomain,
@@ -36,7 +35,6 @@ export const loginRedux = async(email,password,dispatch)=>{
   dispatch(updateStart());
   try{
     const res = await auth.signInWithEmailAndPassword(email,password)
-    console.log("Inside the ressss---",res)
     dispatch(updateUserCredentials(res.user))
     return false
   }catch(error){

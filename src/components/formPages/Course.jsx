@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { updateCourse } from '../states/userSlice';
-import InputComponent from "./InputComponent";
-import TextInputComponent from './TextInputComponent';
-import DateInputComponent from './DateInputComponent';
-import ButtonNextPrev from './ButtonNextPrev';
-import AddNew from './AddNew';
+import { updateCourse } from '../../states/userSlice';
+import TextInputComponent from '../elements/TextInputComponent';
+import DateInputComponent from '../elements/DateInputComponent';
+import ButtonNextPrev from '../elements/ButtonNextPrev';
+import AddNew from '../elements/AddNew';
+import InputComponent from '../elements/InputComponent';
 
 const Course = ({currentPage}) => {
   const data = useSelector((state) => state.user.resumeData.course.data);

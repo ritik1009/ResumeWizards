@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 // import "./form.css";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePersonalInfo, updateProfilePicture } from "../states/userSlice";
-import InputComponent from "./InputComponent";
-import TextInputComponent from './TextInputComponent';
-import ButtonNextPrev from './ButtonNextPrev';
-import { storage } from "../Firebase/firebase";
-import ImageInputComponent from "./ImageInputComponent";
-import { updateResume } from "../states/userSlice";
+import { updatePersonalInfo, updateProfilePicture } from "../../states/userSlice";
+import TextInputComponent from "../elements/TextInputComponent";
+import ButtonNextPrev from "../elements/ButtonNextPrev";
+import InputComponent from "../elements/InputComponent";
+import { storage } from "../../Firebase/firebase";
+import ImageInputComponent from "../elements/ImageInputComponent";
+import { updateResume } from "../../states/userSlice";
 
 const PersonalInfo = ({currentPage}) => {
   const data = useSelector((state) => state.user.resumeData.personalInfo);
