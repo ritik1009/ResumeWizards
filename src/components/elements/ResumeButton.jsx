@@ -1,8 +1,9 @@
 // import PDFFile from "./formTemplate/PDFFile_dict";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { updateResumeData } from "../../states/userSlice";
+import { updateId, updateResumeData, updateResumeName } from "../../states/userSlice";
 import { useState } from "react";
+import Template_1 from './../formTemplate/Template_1';
 const ResumeButton = ({data}) => {
     const [options,setOptions] = useState(false)
     let navigate = useNavigate();
@@ -27,7 +28,10 @@ const ResumeButton = ({data}) => {
 
     // Editing the Pdf
     const editFunc = ()=>{
+      console.log("The data of 0-------",data)
       dispatch(updateResumeData({ data: data.resume }));
+      dispatch(updateResumeName({resumeName:data.name,templateName:data.templateName}));
+      dispatch(updateId({id:data.id}))
       navigate("/finalpdf");
     }
 

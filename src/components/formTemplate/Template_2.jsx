@@ -95,11 +95,14 @@ const styles = StyleSheet.create({
     width: window.innerWidth / 1.5, //the pdf viewer will take up all of the width and height
     height: window.innerHeight,
     backgroundColor: "#dee2e6",
-    overflow:"hidden",
+    overflow: "hidden",
   },
 });
 
-const Template_1 = ({data}) => {
+const Template_2 = ({ data }) => {
+  // const data_ = useSelector((state) => state.user);
+  // console.log(data_)
+  // lastName = data.lastName
   return (
     // <PDFViewer style={styles.viewer} showToolbar={false}>
     <Document>
@@ -112,7 +115,7 @@ const Template_1 = ({data}) => {
                 flex: 0.4,
                 height: "100vh",
                 width: 10,
-                backgroundColor: "green",
+                backgroundColor: "orange",
               },
             ]}
           >
@@ -302,4 +305,4 @@ const Template_1 = ({data}) => {
   );
 };
 
-export default Template_1;
+export default Template_2;

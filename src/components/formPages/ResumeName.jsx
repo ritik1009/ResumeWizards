@@ -6,7 +6,7 @@ import { updateResumeName } from '../../states/userSlice';
 const ResumeName = ({currentPage}) => {
     const resumeNameRef = useRef()
     const dispatch = useDispatch()
-    let templateArray = ["template_1","template_2","template_3","template_4","template_5"]
+    let templateArray = ["template_1","template_2","template_3","template_4"]
     const handleClick  = (template)=>{
         if(resumeNameRef.current.value==""){
             alert("Please give this resume a name")
