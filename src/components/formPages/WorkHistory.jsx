@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateWorkHistory } from '../../states/userSlice';
-import InputComponent from './elements/InputComponent';
-import DateInputComponent from './elements/DateInputComponent';
-import TextInputComponent from './elements/TextInputComponent';
-import AddNew from './elements/AddNew';
-import Save from './elements/Save';
-import { updateDocument } from '../../Firebase/firestore';
+import TextInputComponent from "../elements/TextInputComponent";
+import DateInputComponent from "../elements/DateInputComponent";
+import ButtonNextPrev from "../elements/ButtonNextPrev";
+import AddNew from "../elements/AddNew";
+import InputComponent from "../elements/InputComponent";
 
-const FPWorkHistory = () => {
+const WorkHistory = ({ currentPage }) => {
   const data = useSelector((state) => state.user.resumeData.work_History.data);
-  const doc_id = useSelector((state) => state.user.id);
-  const resume_data = useSelector((state) => state.user.resumeData);
   const [workHistory, setWorkHistory] = useState([
     {
       position: "",
@@ -52,21 +49,27 @@ const FPWorkHistory = () => {
     // setSkills([key][e.target.name] = e.target.value)
   };
   const dispatch = useDispatch();
-  const handleClick = () => {
+  const handleNextClick = () => {
     dispatch(
       updateWorkHistory({
         data: workHistory,
         title: "Employment History",
       })
     );
-    const new_resume_data = { ...resume_data };
-    new_resume_data.work_History = workHistory;
-
-    updateDocument(doc_id, { resume: new_resume_data });
+    currentPage("Projects");
+  };
+  const handlePrevClick = () => {
+    dispatch(
+      updateWorkHistory({
+        data: workHistory,
+        title: "Employment History",
+      })
+    );
+    currentPage("Course");
   };
   return (
-    <div className="form shadow-lg pb-8 w-[90%]">
-      <h1 className="text-3xl  font-bold mb-4 align-middle text-start pl-10 py-5 bg-green-400 text-gray-100">
+    <div className="form shadow-lg pb-8">
+      <h1 className="text-2xl md:text-4xl font-bold mb-4 md:mb-8 align-middle text-start pl-3 md:pl-10 py-5 bg-green-400 text-gray-100">
         Work Experince
       </h1>
       <div className="formContainer">
@@ -74,7 +77,7 @@ const FPWorkHistory = () => {
           return (
             <div
               key={idx}
-              className="grid gap-5 gap-y-3 p-2 pb-4 border border-1 border-inherit"
+              className="grid sm:grid-cols-2 gap-5 gap-y-3 text-l p-2 pb-4 border border-1 border-inherit"
             >
               <InputComponent
                 labelName={"Position"}
@@ -111,6 +114,15 @@ const FPWorkHistory = () => {
                 updateFunction={updateWork}
                 idx={idx}
               />
+              {/* <label>Description</label>
+              <input
+                className="formInput"
+                type="text"
+                placeholder={"Description"}
+                name="description"
+                value={work.description}
+                onChange={(e) => updateWork(e, { idx })}
+              /> */}
               <TextInputComponent
                 labelName={"Description"}
                 elname={"description"}
@@ -122,10 +134,13 @@ const FPWorkHistory = () => {
           );
         })}
         <AddNew add={addSkills} remove={removeSkills} lis={workHistory} />
-        <Save handleClick={handleClick} />
+        <ButtonNextPrev
+          handlePrevClick={handlePrevClick}
+          handleNextClick={handleNextClick}
+        />
       </div>
     </div>
   );
 };
 
-export default FPWorkHistory
+export default WorkHistory

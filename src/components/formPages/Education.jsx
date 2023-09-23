@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateEductaion } from "../../states/userSlice";
-import InputComponent from "./elements/InputComponent";
-import DateInputComponent from "./elements/DateInputComponent";
-import AddNew from "./elements/AddNew";
-import Save from "./elements/Save";
-import { updateDocument } from "../../Firebase/firestore";
+import DateInputComponent from "../elements/DateInputComponent";
+import ButtonNextPrev from "../elements/ButtonNextPrev";
+import AddNew from "../elements/AddNew";
+import InputComponent from "../elements/InputComponent";
 
-const FPEductaion = () => {
+const Eductaion = ({currentPage}) => {
   const data = useSelector((state) => state.user.resumeData.education.data);
-  const doc_id = useSelector((state) => state.user.id);
-  const resume_data = useSelector((state) => state.user.resumeData);
   const dispatch = useDispatch();
   const [education, setEducation] = useState([
     {
@@ -54,22 +51,28 @@ const FPEductaion = () => {
     // setSkills([key][e.target.name] = e.target.value)
   };
   
-  const handleClick = () => {
+  const handleNextClick = () => {
     dispatch(
       updateEductaion({
         data: education,
         title: "Education",
       })
     );
-    const new_resume_data = { ...resume_data };
-    new_resume_data.education = education;
-
-    updateDocument(doc_id, { resume: new_resume_data });
+    currentPage('Course')
 
   };
+  const handlePrevClick = () => {
+    dispatch(
+      updateEductaion({
+        data: education,
+        title: "Education",
+      })
+    );
+    currentPage("Links");
+  };
   return (
-    <div className="form shadow-lg pb-8 w-[90%]">
-      <h1 className=" text-3xl  font-bold mb-4 align-middle text-start pl-10 py-5 bg-green-400 text-gray-100">
+    <div className="form shadow-lg pb-8">
+      <h1 className=" text-2xl md:text-4xl font-bold mb-4 md:mb-8 align-middle text-start pl-3 md:pl-10 py-5 bg-green-400 text-gray-100">
         Education Info
       </h1>
       <div className="formContainer ">
@@ -77,7 +80,7 @@ const FPEductaion = () => {
           return (
             <div
               key={idx}
-              className="grid gap-5 gap-y-3 p-2 pb-4 border border-1 border-inherit"
+              className="grid sm:grid-cols-2 gap-5 gap-y-3 text-l p-2 pb-4 border border-1 border-inherit"
             >
               <InputComponent
                 labelName={"Degree"}
@@ -135,9 +138,12 @@ const FPEductaion = () => {
         })}
       </div>
       <AddNew add={addSkills} remove={removeSkills} lis={education} />
-      <Save handleClick={handleClick} />
+      <ButtonNextPrev
+        handlePrevClick={handlePrevClick}
+        handleNextClick={handleNextClick}
+      />
     </div>
   );
 };
 
-export default FPEductaion;
+export default Eductaion;

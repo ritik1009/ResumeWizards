@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSkills } from "../../states/userSlice";
-import InputComponent from "./elements/InputComponent";
-import AddNew from "./elements/AddNew";
-import Save from "./elements/Save";
-import { updateDocument } from "../../Firebase/firestore";
+import ButtonNextPrev from "../elements/ButtonNextPrev";
+import AddNew from "../elements/AddNew";
+import InputComponent from "../elements/InputComponent";
+import { useNavigate } from "react-router-dom";
 
-const FPSkills = () => {
+const Skills = ({ currentPage }) => {
   const data = useSelector((state) => state.user.resumeData.skills.data);
   const [skills, setSkills] = useState([{ name: "", rating: 0 }]);
-  const resume_data = useSelector((state) => state.user.resumeData);
-  const doc_id = useSelector((state) => state.user.id);
+  const navigate = useNavigate()
   const addSkills = () => {
     setSkills((prevState) => [...prevState, { name: "", rating: 0 }]);
   };
@@ -33,21 +32,28 @@ const FPSkills = () => {
     }
   }, []);
   const dispatch = useDispatch();
-  const handleClick = () => {
+  const handleNextClick = () => {
     dispatch(
       updateSkills({
         data: skills,
         title: "Skills",
       })
     );
-    const new_resume_data = { ...resume_data };
-    new_resume_data.skills = skills;
-
-    updateDocument(doc_id, { resume: new_resume_data });
+    navigate('/finalpdf')
+    
+  };
+  const handlePrevClick = () => {
+    dispatch(
+      updateSkills({
+        data: skills,
+        title: "Skills",
+      })
+    );
+    currentPage("Projects");
   };
   return (
-    <div className="form shadow-lg pb-8 w-[90%]">
-      <h1 className="text-3xl  font-bold mb-4 align-middle text-start pl-10 py-5 bg-green-400 text-gray-100">
+    <div className="form shadow-lg pb-8">
+      <h1 className="text-2xl md:text-4xl font-bold mb-4 md:mb-8 align-middle text-start pl-3 md:pl-10 py-5 bg-green-400 text-gray-100">
         Skills Info
       </h1>
       <div className="formContainer">
@@ -55,7 +61,7 @@ const FPSkills = () => {
           return (
             <div
               key={idx}
-              className="grid gap-5 gap-y-3 p-2 pb-4 border border-1 border-inherit"
+              className="grid sm:grid-cols-2 gap-5 gap-y-3 text-l p-2 pb-4 border border-1 border-inherit"
             >
               <InputComponent
                 labelName={"Skill Name"}
@@ -64,12 +70,12 @@ const FPSkills = () => {
                 updateFunction={updateSkill}
                 idx={idx}
               />
-              <div className="formItem flex gap-1 md:gap-0  px-0 md:px-2 items-center justify-between">
-                <label className="text-left whitespace-nowrap text-ellipsis overflow-hidden mr-1 w-1/3 md:w-auto md:mr-5 font-semibold text-xs sm:text-base ">
+              <div className="formItem flex md:gap-0 lg:gap-1 px-1 md:px-3 lg:px-5 xl:px-10 items-center justify-between">
+                <label className="mr-1 md:mr-5 font-semibold text-sm sm:text-sm md:text-lg">
                   Rating
                 </label>
                 <input
-                  className="formInput text-xs sm:text-base  px-2 sm:px-1 md:px-2 lg:px-3 py-1 w-2/4 sm:w-60  lg:w-60 bg-slate-200"
+                  className="formInput text-sm md:text-lg px-2 sm:px-1 md:px-2 lg:px-3 py-1 w-1/2 sm:w-fit  lg:w-72 bg-slate-200  sm:text-sm"
                   type="number"
                   placeholder={"5"}
                   name="rating"
@@ -83,10 +89,13 @@ const FPSkills = () => {
           );
         })}
         <AddNew add={addSkills} remove={removeSkills} lis={skills} />
-        <Save handleClick={handleClick} />
+        <ButtonNextPrev
+          handlePrevClick={handlePrevClick}
+          handleNextClick={handleNextClick}
+        />
       </div>
     </div>
   );
 };
 
-export default FPSkills;
+export default Skills;

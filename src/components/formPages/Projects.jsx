@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProjects } from '../../states/userSlice';
-import InputComponent from "./elements/InputComponent";
-import TextInputComponent from "./elements/TextInputComponent";
-import DateInputComponent from "./elements/DateInputComponent";
-import AddNew from "./elements/AddNew";
-import Save from './elements/Save';
-import { updateDocument } from '../../Firebase/firestore';
+import TextInputComponent from "../elements/TextInputComponent";
+import DateInputComponent from "../elements/DateInputComponent";
+import ButtonNextPrev from "../elements/ButtonNextPrev";
+import AddNew from "../elements/AddNew";
+import InputComponent from "../elements/InputComponent";
 
-const FPProjects = () => {
+const Projects = ({ currentPage }) => {
   const data = useSelector((state) => state.user.resumeData.Projects.data);
-  const doc_id = useSelector((state) => state.user.id);
-  const resume_data = useSelector((state) => state.user.resumeData);
   const [Project, setProject] = useState([
     {
       name: "",
@@ -76,22 +73,27 @@ const FPProjects = () => {
     // setSkills([key][e.target.name] = e.target.value)
   };
   const dispatch = useDispatch();
-  const handleClick = () => {
+  const handleNextClick = () => {
     dispatch(
       updateProjects({
         data: Project,
         title: "Project",
       })
     );
-    const new_resume_data = { ...resume_data };
-    new_resume_data.Project = Project;
-
-    updateDocument(doc_id, { resume: new_resume_data });
+    currentPage("Skills");
   };
-  
+  const handlePrevClick = () => {
+    dispatch(
+      updateProjects({
+        data: Project,
+        title: "Project",
+      })
+    );
+    currentPage("WorkHistory");
+  };
   return (
-    <div className="form shadow-lg pb-8 w-[90%]">
-      <h1 className="text-3xl  font-bold mb-4 align-middle text-start pl-10 py-5 bg-green-400 text-gray-100">
+    <div className="form shadow-lg pb-8">
+      <h1 className="text-2xl md:text-4xl font-bold mb-4 md:mb-8 align-middle text-start pl-3 md:pl-10 py-5 bg-green-400 text-gray-100">
         Projects Info
       </h1>
       <div className="formContainer">
@@ -99,7 +101,7 @@ const FPProjects = () => {
           return (
             <div
               key={idx}
-              className="grid gap-5 gap-y-3 p-2 pb-4 border border-1 border-inherit"
+              className="grid sm:grid-cols-2 gap-5 gap-y-3 text-l p-2 pb-4 border border-1 border-inherit"
             >
               <InputComponent
                 labelName={"Project Name"}
@@ -154,10 +156,13 @@ const FPProjects = () => {
           );
         })}
         <AddNew add={addSkills} remove={removeSkills} lis={Project} />
-        <Save handleClick={handleClick} />
+        <ButtonNextPrev
+          handlePrevClick={handlePrevClick}
+          handleNextClick={handleNextClick}
+        />
       </div>
     </div>
   );
 };
 
-export default FPProjects
+export default Projects

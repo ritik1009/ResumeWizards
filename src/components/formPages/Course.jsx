@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCourse } from '../../states/userSlice';
-import InputComponent from "./elements/InputComponent";
-import TextInputComponent from './elements/TextInputComponent';
-import DateInputComponent from './elements/DateInputComponent';
-import AddNew from './elements/AddNew';
-import Save from './elements/Save';
-import { updateDocument } from '../../Firebase/firestore';
+import TextInputComponent from '../elements/TextInputComponent';
+import DateInputComponent from '../elements/DateInputComponent';
+import ButtonNextPrev from '../elements/ButtonNextPrev';
+import AddNew from '../elements/AddNew';
+import InputComponent from '../elements/InputComponent';
 
-const FPCourse = () => {
+const Course = ({currentPage}) => {
   const data = useSelector((state) => state.user.resumeData.course.data);
-  const resume_data = useSelector((state) => state.user.resumeData);
-  const doc_id = useSelector((state) => state.user.id);
   const [course, setCourse] = useState([
     {
       name: "",
@@ -64,7 +61,7 @@ const FPCourse = () => {
     })
   }
   const updateCourses = (e, key) => {
-    const newArray = [...course];
+    let newArray = JSON.parse(JSON.stringify(course));
     if (e.target.name === "Github") {
       newArray[key.idx]["links"][0].link = e.target.value;
     } else if (e.target.name === "Live") {
@@ -76,21 +73,27 @@ const FPCourse = () => {
     // setSkills([key][e.target.name] = e.target.value)
   };
   const dispatch = useDispatch();
-  const handleClick = () => {
+  const handleNextClick = () => {
     dispatch(
       updateCourse({
         data: course,
         title: "Course",
       })
     );
-    const new_resume_data = { ...resume_data };
-    new_resume_data.course = course;
-
-    updateDocument(doc_id, { resume: new_resume_data });
+    currentPage('WorkHistory')
   };
+  const handlePrevClick = ()=>{
+    dispatch(
+      updateCourse({
+        data: course,
+        title: "Course",
+      })
+    );
+    currentPage("Education");
+  }
   return (
-    <div className="form shadow-lg pb-8 w-[90%]">
-      <h1 className="text-3xl  font-bold mb-4 align-middle text-start pl-10 py-5 bg-green-400 text-gray-100">
+    <div className="form shadow-lg pb-8">
+      <h1 className="text-2xl md:text-4xl font-bold mb-4 md:mb-8 align-middle text-start pl-3 md:pl-10 py-5 bg-green-400 text-gray-100">
         Course Info
       </h1>
       <div className="formContainer ">
@@ -98,7 +101,7 @@ const FPCourse = () => {
           return (
             <div
               key={idx}
-              className="grid gap-5 gap-y-3 p-2 pb-4 border border-1 border-inherit"
+              className="grid sm:grid-cols-2 gap-5 gap-y-3 text-l p-2 pb-4 border border-1 border-inherit"
             >
               <InputComponent
                 labelName={"Course Name"}
@@ -153,10 +156,13 @@ const FPCourse = () => {
           );
         })}
         <AddNew add={addSkills} remove={removeSkills} lis={course} />
-        <Save handleClick={handleClick} />
+        <ButtonNextPrev
+          handlePrevClick={handlePrevClick}
+          handleNextClick={handleNextClick}
+        />
       </div>
     </div>
   );
 }
 
-export default FPCourse
+export default Course
