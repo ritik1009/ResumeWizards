@@ -3,9 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateLink } from '../../states/userSlice';
 import InputComponent from './elements/InputComponent';
 import Save from './elements/Save';
+import { updateDocument } from '../../Firebase/firestore';
 
 const FPLink = () => {
   const data = useSelector((state) => state.user.resumeData.links.data);
+  const doc_id = useSelector((state) => state.user.id);
+  const resume_data = useSelector((state) => state.user.resumeData);
   const [allLinks, setallLinks] = useState({
     Github: "",
     Linkedin: "",
@@ -15,7 +18,6 @@ const FPLink = () => {
   useEffect(() => {
     if (data) {
       setallLinks(data);
-      console.log(allLinks);
     }
   }, []);
   const updateallLinks = (e, key) => {
@@ -31,6 +33,10 @@ const FPLink = () => {
         title: "Links",
       })
     );
+    const new_resume_data = { ...resume_data };
+    new_resume_data.links = allLinks;
+
+    updateDocument(doc_id, { resume: new_resume_data });
   };
   return (
     <div className="form shadow-lg pb-8 w-[90%]">

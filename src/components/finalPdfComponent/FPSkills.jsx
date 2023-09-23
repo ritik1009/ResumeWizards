@@ -4,10 +4,13 @@ import { updateSkills } from "../../states/userSlice";
 import InputComponent from "./elements/InputComponent";
 import AddNew from "./elements/AddNew";
 import Save from "./elements/Save";
+import { updateDocument } from "../../Firebase/firestore";
 
 const FPSkills = () => {
   const data = useSelector((state) => state.user.resumeData.skills.data);
   const [skills, setSkills] = useState([{ name: "", rating: 0 }]);
+  const resume_data = useSelector((state) => state.user.resumeData);
+  const doc_id = useSelector((state) => state.user.id);
   const addSkills = () => {
     setSkills((prevState) => [...prevState, { name: "", rating: 0 }]);
   };
@@ -31,13 +34,16 @@ const FPSkills = () => {
   }, []);
   const dispatch = useDispatch();
   const handleClick = () => {
-    console.log("Skills", skills);
     dispatch(
       updateSkills({
         data: skills,
         title: "Skills",
       })
     );
+    const new_resume_data = { ...resume_data };
+    new_resume_data.skills = skills;
+
+    updateDocument(doc_id, { resume: new_resume_data });
   };
   return (
     <div className="form shadow-lg pb-8 w-[90%]">

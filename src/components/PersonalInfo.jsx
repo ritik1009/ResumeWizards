@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 // import "./form.css";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePersonalInfo } from "../states/userSlice";
+import { updatePersonalInfo, updateProfilePicture } from "../states/userSlice";
 import InputComponent from "./InputComponent";
 import TextInputComponent from './TextInputComponent';
 import ButtonNextPrev from './ButtonNextPrev';
+import { storage } from "../Firebase/firebase";
+import ImageInputComponent from "./ImageInputComponent";
+import { updateResume } from "../states/userSlice";
 
 const PersonalInfo = ({currentPage}) => {
   const data = useSelector((state) => state.user.resumeData.personalInfo);
-  console.log("Indide PersonalInfo 1")
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const [image,setImage] = useState('')
   const [personalInfo, setPersonalInfo] = useState({
     firstName: "",
     lastName: "",
@@ -20,12 +24,12 @@ const PersonalInfo = ({currentPage}) => {
     summary: "",
   });
   useEffect(()=>{
-    console.log(data)
     if(data){
       setPersonalInfo(data)
     }
+    dispatch(updateResume({ newResume : true}));
   },[])
-  console.log("Indide PersonalInfo 2");
+
   const dispatch = useDispatch();
   const updatePersnalInfo = (e,key)=>{
     let newArray = JSON.parse(JSON.stringify(personalInfo));
@@ -39,8 +43,22 @@ const PersonalInfo = ({currentPage}) => {
       )
     );
     currentPage("Links");
+    upload();
   };
-  console.log("Indide PersonalInfo 3");
+  const updateImage = (e)=>{
+    setImage(e.target.files[0])
+  }
+  const upload = async()=>{
+    if(image==null) return;
+    const imageRef = storage.ref(`/profileImages/${currentUser.uid}/${image.name}`)
+    imageRef.put(image).then((snapshot) => {
+      // You can retrieve the download URL after the image is uploaded.
+      imageRef.getDownloadURL().then((url) => {
+        dispatch(updateProfilePicture({ profileImage :url}));
+        // Do something with the URL, such as saving it in Firestore or displaying it in your UI.
+      });
+    });
+  }
   return (
     <div className="form shadow-lg pb-8">
       <h1 className="text-2xl md:text-4xl font-bold mb-4 md:mb-8 align-middle text-start pl-3 md:pl-10 py-5 bg-green-400 text-gray-100">
@@ -102,6 +120,11 @@ const PersonalInfo = ({currentPage}) => {
           value={personalInfo.summary}
           updateFunction={updatePersnalInfo}
           idx={""}
+        />
+        <ImageInputComponent
+          labelName={"Profile Pic"}
+          elname={"profilePic"}
+          updateFunction={updateImage}
         />
       </div>
       <ButtonNextPrev handleNextClick={handleNextClick} />

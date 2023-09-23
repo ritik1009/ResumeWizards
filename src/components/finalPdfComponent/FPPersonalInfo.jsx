@@ -1,14 +1,22 @@
 import { useEffect, useState } from "react";
-// import "./form.css";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePersonalInfo } from "../../states/userSlice";
+import { updatePersonalInfo, updateProfilePicture } from "../../states/userSlice";
 import InputComponent from "./elements/InputComponent";
 import TextInputComponent from "./elements/TextInputComponent";
 import Save from "./elements/Save";
 import ImageComponent from "./elements/ImageComponent";
-// import ButtonNextPrev from "./elements/ButtonNextPrev";
+import { updateDocument } from "../../Firebase/firestore";
+import { storage } from "../../Firebase/firebase";
+
+
 const FPPersonalInfo = () => {
   const data = useSelector((state) => state.user.resumeData.personalInfo);
+  const doc_id = useSelector((state) => state.user.id);
+  const [image, setImage] = useState("");
+  const [imageUpdated,setImageUpdated] = useState(false)
+  const resume_data = useSelector(
+    (state) => state.user.resumeData
+  );
   const [personalInfo, setPersonalInfo] = useState({
     firstName: "",
     lastName: "",
@@ -20,7 +28,6 @@ const FPPersonalInfo = () => {
     summary: "",
   });
   useEffect(()=>{
-    console.log(data)
     if(data){
       setPersonalInfo(data)
     }
@@ -32,23 +39,36 @@ const FPPersonalInfo = () => {
     setPersonalInfo(newArray);
   }
   const handleClick = () => {
-    console.log("BUtton Clicked")
-    console.log("data",personalInfo)
+    if(imageUpdated){
+      upload();
+      setImageUpdated(false)
+    }
     dispatch(
       updatePersonalInfo(
       personalInfo
       )
     );
+    const new_resume_data = {...resume_data}
+    new_resume_data.personalInfo = personalInfo 
+
+    updateDocument(doc_id,{resume:new_resume_data})
   };
-  const handleFile = (e)=>{
-    let newArray = JSON.parse(JSON.stringify(personalInfo));
-    console.log("Thsi is the File update", newArray);
-    const file = e.target.files[0];
-    const localImageUrl = window.URL.createObjectURL(file);
-    newArray[e.target.name] = localImageUrl;
-    console.log("Thsi is the File update",newArray)
-    setPersonalInfo(newArray)
-  }
+  
+  const updateImage = (e) => {
+    setImage(e.target.files[0]);
+    setImageUpdated(true)
+  };
+  const upload = async () => {
+    if (image == null) return;
+    const imageRef = storage.ref(`/images/${image.name}`);
+    imageRef.put(image).then((snapshot) => {
+      // You can retrieve the download URL after the image is uploaded.
+      imageRef.getDownloadURL().then((url) => {
+        dispatch(updateProfilePicture({ profileImage: url }));
+        // Do something with the URL, such as saving it in Firestore or displaying it in your UI.
+      });
+    });
+  };
   return (
     <div className="form shadow-lg pb-8 w-[90%] ">
       <h1 className="text-3xl  font-bold mb-4 align-middle text-start pl-10 py-5 bg-green-400 text-gray-100">
@@ -115,7 +135,7 @@ const FPPersonalInfo = () => {
           labelName={"Profile Image"}
           elname={"profileImage"}
           // value={personalInfo.profileImage}
-          updateFunction={handleFile}
+          updateFunction={updateImage}
         />
       </div>
       <Save handleClick={handleClick} />

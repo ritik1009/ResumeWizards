@@ -7,6 +7,8 @@ export const userSlice = createSlice({
 		// Then we are setting the initial values of the variable we will be 
 		// assigning to the variable that we will use.
     initialState:{
+      id:'',
+      newResume:false,
       currentUser:{},
       pending:false,
       error:false,
@@ -69,6 +71,12 @@ export const userSlice = createSlice({
         updateResumeData:(state,action)=>{
           state.resumeData = action.payload.data
         },
+        updateResume:(state,action)=>{
+          state.newResume = action.payload.newResume
+        },
+        updateId:(state,action)=>{
+          state.id = action.payload.id
+        },
         updatePersonalInfo:(state,action)=>{
             state.resumeData.personalInfo.firstName = action.payload.firstName;
             state.resumeData.personalInfo.lastName = action.payload.lastName;
@@ -78,7 +86,9 @@ export const userSlice = createSlice({
             state.resumeData.personalInfo.job_position = action.payload.job_position;
             state.resumeData.personalInfo.summary = action.payload.summary;
             state.resumeData.personalInfo.email_address = action.payload.email_address;
-            state.resumeData.personalInfo.profileImage = action.payload.profileImage
+        },
+        updateProfilePicture:(state,action)=>{
+          state.resumeData.personalInfo.profileImage = action.payload.profileImage
         },
         updateLink:(state,action)=>{
           state.resumeData.links.data = action.payload.data;
@@ -126,6 +136,6 @@ export const userSlice = createSlice({
     }
 })
 
-export const { updatePersonalInfo,updateLink,updateSkills,updateWorkHistory,updateProjects,updateEductaion,updateCourse,updateStart,updateError,updateUserCredentials,getError,updateResumeData,updateResumeName } = userSlice.actions;
+export const { updatePersonalInfo,updateLink,updateSkills,updateWorkHistory,updateProjects,updateEductaion,updateCourse,updateStart,updateError,updateUserCredentials,getError,updateResumeData,updateResumeName,updateProfilePicture,updateId,updateResume } = userSlice.actions;
 
 export default userSlice.reducer;

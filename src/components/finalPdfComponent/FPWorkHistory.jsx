@@ -6,9 +6,12 @@ import DateInputComponent from './elements/DateInputComponent';
 import TextInputComponent from './elements/TextInputComponent';
 import AddNew from './elements/AddNew';
 import Save from './elements/Save';
+import { updateDocument } from '../../Firebase/firestore';
 
 const FPWorkHistory = () => {
   const data = useSelector((state) => state.user.resumeData.work_History.data);
+  const doc_id = useSelector((state) => state.user.id);
+  const resume_data = useSelector((state) => state.user.resumeData);
   const [workHistory, setWorkHistory] = useState([
     {
       position: "",
@@ -56,6 +59,10 @@ const FPWorkHistory = () => {
         title: "Employment History",
       })
     );
+    const new_resume_data = { ...resume_data };
+    new_resume_data.work_History = workHistory;
+
+    updateDocument(doc_id, { resume: new_resume_data });
   };
   return (
     <div className="form shadow-lg pb-8 w-[90%]">

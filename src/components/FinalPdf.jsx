@@ -7,10 +7,24 @@ import FPWorkHistory from './finalPdfComponent/FPWorkHistory';
 import FPCourse from './finalPdfComponent/FPCourse';
 import FPProjects from './finalPdfComponent/FPProjects';
 import FPSkills from './finalPdfComponent/FPSkills';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { addResume } from "../Firebase/firestore";
+import { updateResume } from "../states/userSlice";
 
 const FinalPdf = () => {
   const data = useSelector((state) => state.user.resumeData);
+  const user_id = useSelector((state) => state.user.currentUser.uid);
+  const resume_name = useSelector((state) => state.user.resumeName);
+  const template_name = useSelector((state) => state.user.templateName);
+  const newResume = useSelector((state) => state.user.newResume);
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    if(newResume){
+      addResume(user_id, resume_name, template_name, data, dispatch);
+      dispatch(updateResume({ newResume: false }));
+    }
+  },[user_id])
   return (
     <div>
       <div className="flex gap-3">

@@ -1,5 +1,6 @@
-import { addDoc, collection, getDocs, query, where } from "@firebase/firestore";
+import { addDoc, collection, getDocs, query, where,doc,updateDoc } from "@firebase/firestore";
 import { db } from "./firebase";
+import { updateId } from "../states/userSlice";
 const userCollectionRef = collection(db, "user");
 const resumeCollectionRef = collection(db, "resumeData")
 
@@ -31,13 +32,34 @@ export const getResume = async(id)=>{
     return data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 }
 
+// Updating the Document
+export const updateDocument = async (docId, updatedData) => {
+  try {
+    console.log("DocumentId",docId)
+    docId = "zal6vr6O2mQR5CMs73J7";
+    console.log("The Document",updatedData)
+    const docRef = doc(db,"resumeData", docId);
+    // Use the update method to update the document with new data
+    await updateDoc(docRef, updatedData);
+  } catch (error) {
+    console.error("Error updating document:", error);
+  }
+};
+
 
 // Saving the data in the database
-export const addResume = async (id, name,tempalteName,resumedata) => {
-  await addDoc(resumeCollectionRef, {
+export const addResume = async (id, name, tempalteName, resumedata,dispatch) => {
+  const doc_id = await addResumeFunc(id, name, tempalteName, resumedata);
+  console.log("This is the Doc_id -------------",doc_id)
+  dispatch(updateId({id:doc_id}));
+}; 
+const addResumeFunc = (id, name,tempalteName,resumedata) => {
+  return addDoc(resumeCollectionRef, {
     user_id: id,
     name: name,
     templateName:tempalteName,
     resume: resumedata,
+  }).then((docRef)=>{
+    return docRef._key.path.segments[1]
   });
 };

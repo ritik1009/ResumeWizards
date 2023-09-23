@@ -5,9 +5,12 @@ import InputComponent from "./elements/InputComponent";
 import DateInputComponent from "./elements/DateInputComponent";
 import AddNew from "./elements/AddNew";
 import Save from "./elements/Save";
+import { updateDocument } from "../../Firebase/firestore";
 
 const FPEductaion = () => {
   const data = useSelector((state) => state.user.resumeData.education.data);
+  const doc_id = useSelector((state) => state.user.id);
+  const resume_data = useSelector((state) => state.user.resumeData);
   const dispatch = useDispatch();
   const [education, setEducation] = useState([
     {
@@ -58,6 +61,10 @@ const FPEductaion = () => {
         title: "Education",
       })
     );
+    const new_resume_data = { ...resume_data };
+    new_resume_data.education = education;
+
+    updateDocument(doc_id, { resume: new_resume_data });
 
   };
   return (
@@ -89,8 +96,8 @@ const FPEductaion = () => {
 
               <InputComponent
                 labelName={"College Name"}
-                placeholder={"collegeName"}
-                elname={work.collegeName}
+                elname={"collegeName"}
+                value={work.collegeName}
                 updateFunction={updateEducations}
                 idx={idx}
               />

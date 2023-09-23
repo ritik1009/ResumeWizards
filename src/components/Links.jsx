@@ -21,7 +21,6 @@ const Links = ({ currentPage }) => {
   const updateallLinks = (e, key) => {
     let newArray = JSON.parse(JSON.stringify(allLinks));
     newArray[e.target.name] = e.target.value;
-    console.log("The Updated",newArray)
     setallLinks(newArray);
   };
   const dispatch = useDispatch();

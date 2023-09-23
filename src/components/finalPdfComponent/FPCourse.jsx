@@ -6,9 +6,12 @@ import TextInputComponent from './elements/TextInputComponent';
 import DateInputComponent from './elements/DateInputComponent';
 import AddNew from './elements/AddNew';
 import Save from './elements/Save';
+import { updateDocument } from '../../Firebase/firestore';
 
 const FPCourse = () => {
   const data = useSelector((state) => state.user.resumeData.course.data);
+  const resume_data = useSelector((state) => state.user.resumeData);
+  const doc_id = useSelector((state) => state.user.id);
   const [course, setCourse] = useState([
     {
       name: "",
@@ -81,6 +84,10 @@ const FPCourse = () => {
         title: "Course",
       })
     );
+    const new_resume_data = { ...resume_data };
+    new_resume_data.course = course;
+
+    updateDocument(doc_id, { resume: new_resume_data });
   };
   return (
     <div className="form shadow-lg pb-8 w-[90%]">

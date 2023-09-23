@@ -14,6 +14,7 @@ import SingUp from "./pages/SingUp";
 import Templates from "./pages/Templates";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import FinalPdf from "./components/FinalPdf";
 
 function App() {
   const [loggedIn,setLoggedIn] = useState(false)
@@ -45,10 +46,17 @@ function App() {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/signUp" element={<SingUp />} />
+
           <Route
             path="/templates"
             element={
               loggedIn ? <Templates /> : <Navigate replace to="/login" />
+            }
+          />
+          <Route
+            path="/finalpdf"
+            element={
+              loggedIn ? <FinalPdf /> : <Navigate replace to="/login" />
             }
           />
         </Routes>

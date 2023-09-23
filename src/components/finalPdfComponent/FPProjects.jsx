@@ -6,9 +6,12 @@ import TextInputComponent from "./elements/TextInputComponent";
 import DateInputComponent from "./elements/DateInputComponent";
 import AddNew from "./elements/AddNew";
 import Save from './elements/Save';
+import { updateDocument } from '../../Firebase/firestore';
 
 const FPProjects = () => {
   const data = useSelector((state) => state.user.resumeData.Projects.data);
+  const doc_id = useSelector((state) => state.user.id);
+  const resume_data = useSelector((state) => state.user.resumeData);
   const [Project, setProject] = useState([
     {
       name: "",
@@ -80,6 +83,10 @@ const FPProjects = () => {
         title: "Project",
       })
     );
+    const new_resume_data = { ...resume_data };
+    new_resume_data.Project = Project;
+
+    updateDocument(doc_id, { resume: new_resume_data });
   };
   
   return (

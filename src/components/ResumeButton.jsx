@@ -3,13 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateResumeData } from "../states/userSlice";
 import { useState } from "react";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import Template_1 from "./formTemplate/Template_1";
 const ResumeButton = ({data}) => {
     const [options,setOptions] = useState(false)
     let navigate = useNavigate();
     const dispatch = useDispatch();
-    console.log("Inside Resume Button 1")
 
     // Handle the hover effect
     const changeBcakground = (e)=>{
@@ -28,6 +25,11 @@ const ResumeButton = ({data}) => {
       navigate("/resumeForm");
     }
 
+    // Editing the Pdf
+    const editFunc = ()=>{
+      dispatch(updateResumeData({ data: data.resume }));
+      navigate("/finalpdf");
+    }
 
     // craeting a new blank resume
     const handleClick = ()=>{
@@ -117,19 +119,9 @@ const ResumeButton = ({data}) => {
                 onMouseEnter={changeBcakground}
                 onMouseLeave={defaultColor}
                 className="h-full w-full flex justify-center items-center overflow-hidden"
+                onClick={editFunc}
               >
-                <PDFDownloadLink
-                  document={<Template_1 data={data.resume} />}
-                  fileName="Resume.pdf"
-                >
-                  {({ blob, url, loading, error }) =>
-                    loading ? (
-                      <p className="w-full font-bold">Loading document...</p>
-                    ) : (
-                      <p className="w-full font-bold">Download now!</p>
-                    )
-                  }
-                </PDFDownloadLink>
+                <p className=" font-bold">Edit</p>
               </div>
             </div>
           )}

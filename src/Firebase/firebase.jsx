@@ -1,5 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+import 'firebase/compat/database'
+import 'firebase/compat/storage'
 import { updateError, updateStart, updateUserCredentials } from "../states/userSlice";
 import {getFirestore} from "@firebase/firestore"
 
@@ -22,6 +24,8 @@ export default app;
 
 // This is for databse
 export const db = getFirestore(app);
+export const dataref = firebase.database();
+export const storage = firebase.storage();
 
 
 

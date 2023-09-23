@@ -4,10 +4,12 @@ import { updateSkills } from "../states/userSlice";
 import InputComponent from "./InputComponent";
 import ButtonNextPrev from "./ButtonNextPrev";
 import AddNew from "./AddNew";
+import { useNavigate } from "react-router-dom";
 
 const Skills = ({ currentPage }) => {
   const data = useSelector((state) => state.user.resumeData.skills.data);
   const [skills, setSkills] = useState([{ name: "", rating: 0 }]);
+  const navigate = useNavigate()
   const addSkills = () => {
     setSkills((prevState) => [...prevState, { name: "", rating: 0 }]);
   };
@@ -31,17 +33,16 @@ const Skills = ({ currentPage }) => {
   }, []);
   const dispatch = useDispatch();
   const handleNextClick = () => {
-    console.log("Skills", skills);
     dispatch(
       updateSkills({
         data: skills,
         title: "Skills",
       })
     );
-    currentPage("Completed");
+    navigate('/finalpdf')
+    
   };
   const handlePrevClick = () => {
-    console.log("Skills", skills);
     dispatch(
       updateSkills({
         data: skills,

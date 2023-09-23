@@ -19,7 +19,6 @@ const Home = () => {
     }
     getUserdata();
   },[])
-  console.log("The Resemuemenme", resumeData)
   return (
     <div className="">
       <section className="grid grid-cols-4 pl-12 py-5  gap-y-12">

@@ -8,7 +8,6 @@ const Navbar = () => {
   const [loading,setLoading] =useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log("CurrentUser",data)
   async function logout(){
     setLoading(true)
     await logoutRedux(dispatch)
