@@ -29,7 +29,7 @@ const FinalPdf = () => {
     template_4: <Template_4 data={data} />,
   };
   const selectedTemplate = () => {
-    return templates["template_2"];
+    return templates[template_name];
   };
   useEffect(() => {
     if (newResume) {
