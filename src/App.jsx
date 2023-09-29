@@ -20,7 +20,6 @@ function App() {
   const [loggedIn,setLoggedIn] = useState(false)
   const currentUser = useSelector((state) => state.user.currentUser);
   useEffect(()=>{
-    console.log("Currrrrrrrrrrr",currentUser)
     if(Object.keys(currentUser).length>1){
       setLoggedIn(true)
     }

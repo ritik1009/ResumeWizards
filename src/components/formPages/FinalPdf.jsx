@@ -29,6 +29,7 @@ const FinalPdf = () => {
     template_4: <Template_4 data={data} />,
   };
   const selectedTemplate = () => {
+    console.log("Templaye_name -----",template_name)
     return templates[template_name];
   };
   useEffect(() => {

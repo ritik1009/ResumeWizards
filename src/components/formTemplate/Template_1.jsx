@@ -225,31 +225,35 @@ const Template_1 = ({data}) => {
             </View>
 
             {/* Projects */}
-            <View>
-              <Text style={styles.Heading}>Project</Text>
-              {data.Projects.data.map((da, idx) => {
-                return (
-                  <View style={styles.project} key={idx}>
-                    <Text style={styles.rightSubHeading}>{da.name}</Text>
-                    <Text style={styles.date}>
-                      {da.start_date} - {da.end_date}
-                    </Text>
-                    <Text style={styles.rightText}>{da.description}</Text>
-                    {da.links.map((links, idx) => {
-                      return (
-                        <Link
-                          key={idx}
-                          src={links.link}
-                          style={[styles.rightText, styles.link]}
-                        >
-                          {links.name}
-                        </Link>
-                      );
-                    })}
-                  </View>
-                );
-              })}
-            </View>
+            {data.Projects.data.length? (
+              <View>
+                <Text style={styles.Heading}>
+                  Project{data.Projects.data.length}
+                </Text>
+                {data.Projects.data.map((da, idx) => {
+                  return (
+                    <View style={styles.project} key={idx}>
+                      <Text style={styles.rightSubHeading}>{da.name}</Text>
+                      <Text style={styles.date}>
+                        {da.start_date} - {da.end_date}
+                      </Text>
+                      <Text style={styles.rightText}>{da.description}</Text>
+                      {da.links.map((links, idx) => {
+                        return (
+                          <Link
+                            key={idx}
+                            src={links.link}
+                            style={[styles.rightText, styles.link]}
+                          >
+                            {links.name}
+                          </Link>
+                        );
+                      })}
+                    </View>
+                  );
+                })}
+              </View>
+            ) : null}
             {/* Eductaion */}
             <View>
               <Text style={styles.Heading}>Eductaion</Text>

@@ -77,12 +77,14 @@ const FPProjects = () => {
   };
   const dispatch = useDispatch();
   const handleClick = () => {
-    dispatch(
-      updateProjects({
-        data: Project,
-        title: "Project",
-      })
-    );
+    if (!Project[0].name === "") {
+      dispatch(
+        updateProjects({
+          data: Project,
+          title: "Project",
+        })
+      );
+    }
     const new_resume_data = { ...resume_data };
     new_resume_data.Project = Project;
 
@@ -137,9 +139,9 @@ const FPProjects = () => {
                 idx={idx}
               />
 
-              {project.links.map((links) => {
+              {project.links.map((links,idx) => {
                 return (
-                  <>
+                  <div key={idx}>
                     <InputComponent
                       labelName={links.name}
                       elname={links.name}
@@ -147,7 +149,7 @@ const FPProjects = () => {
                       updateFunction={updateProject}
                       idx={idx}
                     />
-                  </>
+                  </div>
                 );
               })}
             </div>

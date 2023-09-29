@@ -77,12 +77,14 @@ const FPCourse = () => {
   };
   const dispatch = useDispatch();
   const handleClick = () => {
-    dispatch(
-      updateCourse({
-        data: course,
-        title: "Course",
-      })
-    );
+    if (!course[0].name === "") {
+      dispatch(
+        updateCourse({
+          data: course,
+          title: "Employment History",
+        })
+      );
+    }
     const new_resume_data = { ...resume_data };
     new_resume_data.course = course;
 
@@ -136,9 +138,9 @@ const FPCourse = () => {
                 idx={idx}
               />
 
-              {courses.links.map((links) => {
+              {courses.links.map((links,idx) => {
                 return (
-                  <>
+                  <div key={idx}>
                     <InputComponent
                       labelName={links.name}
                       elname={links.name}
@@ -146,7 +148,7 @@ const FPCourse = () => {
                       updateFunction={updateCourses}
                       idx={idx}
                     />
-                  </>
+                  </div>
                 );
               })}
             </div>

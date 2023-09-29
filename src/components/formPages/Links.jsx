@@ -34,12 +34,14 @@ const Links = ({ currentPage }) => {
   };
   
   const handlePrevClick = () => {
-    dispatch(
-      updateLink({
-        data: allLinks,
-        title: "Links",
-      })
-    );
+    if(allLinks.Github!=="" || allLinks.Linkedin!=="" || allLinks.Medium!=="" || allLinks.Twitter!==""){
+      dispatch(
+        updateLink({
+          data: allLinks,
+          title: "Links",
+        })
+      );
+    }
     currentPage("PersonalInfo");
   };
   return (

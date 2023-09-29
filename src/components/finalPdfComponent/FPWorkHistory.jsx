@@ -53,12 +53,14 @@ const FPWorkHistory = () => {
   };
   const dispatch = useDispatch();
   const handleClick = () => {
-    dispatch(
-      updateWorkHistory({
-        data: workHistory,
-        title: "Employment History",
-      })
-    );
+    if (!workHistory[0].companyName === "") {
+      dispatch(
+        updateWorkHistory({
+          data: workHistory,
+          title: "Employment History",
+        })
+      );
+    }
     const new_resume_data = { ...resume_data };
     new_resume_data.work_History = workHistory;
 

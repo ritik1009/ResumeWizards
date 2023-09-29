@@ -21,7 +21,9 @@ const Home = () => {
     <div className="">
       <section className="grid grid-cols-4 pl-12 py-5  gap-y-12">
         {resumeData.map((res,idx)=>{
-          return <><ResumeButton data={res}/></>
+          return <div key={idx}>
+          <ResumeButton data={res}/>
+          </div >
         })}
         <ResumeButton/>
       </section>

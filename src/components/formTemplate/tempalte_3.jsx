@@ -169,17 +169,6 @@ const Template_3 = ({ data }) => {
             <Text style={styles.text}>{data.personalInfo.phone_number}</Text>
             <Text style={styles.text}>{data.personalInfo.email_address}</Text>
             <Text style={styles.subHeading}>Links</Text>
-            {/* {data.links.data.map((links, idx) => {
-                return (
-                  <Link
-                    key={idx}
-                    src={links.link}
-                    style={[styles.text, styles.link]}
-                  >
-                    {links.name}
-                  </Link>
-                );
-              })} */}
             {Object.keys(data.links.data).map((key, idx) => {
               return data.links.data[key] ? (
                 <Link
@@ -209,6 +198,7 @@ const Template_3 = ({ data }) => {
               <Text style={styles.rightText}>{data.personalInfo.summary}</Text>
             </View>
             {/* Employment History */}
+            {data.work_History.data.length>0 ?
             <View>
               <Text style={styles.Heading}>Employment History</Text>
 
@@ -225,34 +215,35 @@ const Template_3 = ({ data }) => {
                   </View>
                 );
               })}
-            </View>
-
+            </View>:null}
             {/* Projects */}
-            <View>
-              <Text style={styles.Heading}>Project</Text>
-              {data.Projects.data.map((da, idx) => {
-                return (
-                  <View style={styles.project} key={idx}>
-                    <Text style={styles.rightSubHeading}>{da.name}</Text>
-                    <Text style={styles.date}>
-                      {da.start_date} - {da.end_date}
-                    </Text>
-                    <Text style={styles.rightText}>{da.description}</Text>
-                    {da.links.map((links, idx) => {
-                      return (
-                        <Link
-                          key={idx}
-                          src={links.link}
-                          style={[styles.rightText, styles.link]}
-                        >
-                          {links.name}
-                        </Link>
-                      );
-                    })}
-                  </View>
-                );
-              })}
-            </View>
+            {data.Projects.data.length > 0 ? (
+              <View>
+                <Text style={styles.Heading}>Project</Text>
+                {data.Projects.data.map((da, idx) => {
+                  return (
+                    <View style={styles.project} key={idx}>
+                      <Text style={styles.rightSubHeading}>{da.name}</Text>
+                      <Text style={styles.date}>
+                        {da.start_date} - {da.end_date}
+                      </Text>
+                      <Text style={styles.rightText}>{da.description}</Text>
+                      {da.links.map((links, idx) => {
+                        return (
+                          <Link
+                            key={idx}
+                            src={links.link}
+                            style={[styles.rightText, styles.link]}
+                          >
+                            {links.name}
+                          </Link>
+                        );
+                      })}
+                    </View>
+                  );
+                })}
+              </View>
+            ) : null}
             {/* Eductaion */}
             <View>
               <Text style={styles.Heading}>Eductaion</Text>
@@ -271,32 +262,34 @@ const Template_3 = ({ data }) => {
               })}
             </View>
             {/* Courses */}
-            <View>
-              <Text style={styles.Heading}>Courses</Text>
-              {data.course.data.map((da, idx) => {
-                return (
-                  <View style={styles.courses} key={idx}>
-                    <Text style={styles.rightSubHeading}>{da.name}</Text>
-                    <Text style={styles.fromWhere}>{da.fromWhere}</Text>
-                    <Text style={styles.date}>
-                      {da.start_date} - {da.end_date}
-                    </Text>
-                    <Text style={styles.rightText}>{da.description}</Text>
-                    {da.links.map((links, idx) => {
-                      return (
-                        <Link
-                          key={idx}
-                          src={links.link}
-                          style={[styles.rightText, styles.link]}
-                        >
-                          {links.name}
-                        </Link>
-                      );
-                    })}
-                  </View>
-                );
-              })}
-            </View>
+            {data.course.data.length > 0 ? (
+              <View>
+                <Text style={styles.Heading}>Courses</Text>
+                {data.course.data.map((da, idx) => {
+                  return (
+                    <View style={styles.courses} key={idx}>
+                      <Text style={styles.rightSubHeading}>{da.name}</Text>
+                      <Text style={styles.fromWhere}>{da.fromWhere}</Text>
+                      <Text style={styles.date}>
+                        {da.start_date} - {da.end_date}
+                      </Text>
+                      <Text style={styles.rightText}>{da.description}</Text>
+                      {da.links.map((links, idx) => {
+                        return (
+                          <Link
+                            key={idx}
+                            src={links.link}
+                            style={[styles.rightText, styles.link]}
+                          >
+                            {links.name}
+                          </Link>
+                        );
+                      })}
+                    </View>
+                  );
+                })}
+              </View>
+            ) : null}
           </View>
         </View>
       </Page>

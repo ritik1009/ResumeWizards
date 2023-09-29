@@ -74,21 +74,25 @@ const Projects = ({ currentPage }) => {
   };
   const dispatch = useDispatch();
   const handleNextClick = () => {
-    dispatch(
-      updateProjects({
-        data: Project,
-        title: "Project",
-      })
-    );
+    if (!Project[0].name === "") {
+      dispatch(
+        updateProjects({
+          data: Project,
+          title: "Project",
+        })
+      );
+    }
     currentPage("Skills");
   };
   const handlePrevClick = () => {
-    dispatch(
-      updateProjects({
-        data: Project,
-        title: "Project",
-      })
-    );
+    if (!Projects[0].name === "") {
+      dispatch(
+        updateProjects({
+          data: Project,
+          title: "Project",
+        })
+      );
+    }
     currentPage("WorkHistory");
   };
   return (

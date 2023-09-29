@@ -50,21 +50,25 @@ const WorkHistory = ({ currentPage }) => {
   };
   const dispatch = useDispatch();
   const handleNextClick = () => {
-    dispatch(
-      updateWorkHistory({
-        data: workHistory,
-        title: "Employment History",
-      })
-    );
+    if(!workHistory[0].companyName === ''){
+      dispatch(
+        updateWorkHistory({
+          data: workHistory,
+          title: "Employment History",
+        })
+      );
+    }
     currentPage("Projects");
   };
   const handlePrevClick = () => {
-    dispatch(
-      updateWorkHistory({
-        data: workHistory,
-        title: "Employment History",
-      })
-    );
+    if (!workHistory[0].companyName === "") {
+      dispatch(
+        updateWorkHistory({
+          data: workHistory,
+          title: "Employment History",
+        })
+      );
+    }
     currentPage("Course");
   };
   return (

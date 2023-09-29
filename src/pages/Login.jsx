@@ -17,7 +17,6 @@ const Login = () => {
       setError("");
       setLoading(true);
       const res = await loginRedux(emailRef.current.value,passwordRef.current.value,dispatch)
-      console.log(LoginError)
       if(res){
          throw new Error("Your Credentials is not correct");
       }else{

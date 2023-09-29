@@ -74,21 +74,25 @@ const Course = ({currentPage}) => {
   };
   const dispatch = useDispatch();
   const handleNextClick = () => {
-    dispatch(
-      updateCourse({
-        data: course,
-        title: "Course",
-      })
-    );
+    if (!course[0].name === "") {
+      dispatch(
+        updateCourse({
+          data: course,
+          title: "Employment History",
+        })
+      );
+    }
     currentPage('WorkHistory')
   };
   const handlePrevClick = ()=>{
-    dispatch(
-      updateCourse({
-        data: course,
-        title: "Course",
-      })
-    );
+    if (!course[0].name === "") {
+      dispatch(
+        updateCourse({
+          data: course,
+          title: "Employment History",
+        })
+      );
+    }
     currentPage("Education");
   }
   return (

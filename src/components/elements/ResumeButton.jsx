@@ -122,10 +122,10 @@ const ResumeButton = ({data}) => {
               <div
                 onMouseEnter={changeBcakground}
                 onMouseLeave={defaultColor}
-                className="h-full w-full flex justify-center items-center overflow-hidden"
+                className="h-full w-full flex justify-center items-center overflow-hidden font-bold"
                 onClick={editFunc}
               >
-                <p className=" font-bold">Edit</p>
+                Edit
               </div>
             </div>
           )}
