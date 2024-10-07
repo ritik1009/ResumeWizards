@@ -1,6 +1,6 @@
 const AddNew = ({add,remove,lis}) => {
   return (
-    <div className="flex items-center justify-end pr-12 pb-4 mt-3 gap-1">
+    <div className="flex items-center justify-start sm:justify-end sm:pr-12 pb-4 mt-3 gap-1">
       <button
         className="add text-sm md:text-3xl bg-green-600 flex items-center text-white px-3 py-1 rounded-md"
         onClick={add}

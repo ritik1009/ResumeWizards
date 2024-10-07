@@ -38,9 +38,9 @@ const FinalPdf = () => {
     }
   }, [user_id]);
   return (
-    <div className=" w-11/12 mx-auto">
-      <div className="flex gap-3">
-        <div className="w-3/4 grid gap-y-2 overflow-y-scroll h-screen">
+    <div className=" w-[95%] mx-auto">
+      <div className="flex flex-col sm:flex-row gap-3">
+        <div className="w-[100%] grid sm:gap-y-4 sm:overflow-y-scroll sm:h-screen">
           <FPPersonalInfo />
           <FPLink />
           <FPEductaion />
@@ -49,8 +49,8 @@ const FinalPdf = () => {
           <FPProjects />
           <FPSkills />
         </div>
-        <div className="bg-green-400 w-1/2 sm:w-full h-screen">
-          <PDFViewer showToolbar={false} className="w-full h-screen bg-black">
+        <div className="bg-green-400 w-[99%] sm:w-full h-[30rem] sm:h-screen">
+          <PDFViewer showToolbar={false} className="w-full h-[100%] sm:h-screen bg-black">
             {selectedTemplate()}
           </PDFViewer>
         </div>

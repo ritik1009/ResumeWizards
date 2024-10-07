@@ -19,8 +19,8 @@ const Home = () => {
   },[])
   return (
     <div className="">
-      <section className="grid grid-cols-4 pl-12 py-5  gap-y-12">
-        {resumeData.map((res,idx)=>{
+      <section className="grid grid-cols-2 sm:grid-cols-4 px-1 sm:pl-12 py-1 sm:py-5 gap-2 gap-y-5 sm:gap-y-12">
+        {resumeData.map((res,_idx)=>{
           return <><ResumeButton data={res}/></>
         })}
         <ResumeButton/>

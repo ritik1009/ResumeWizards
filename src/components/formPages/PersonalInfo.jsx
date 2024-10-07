@@ -8,6 +8,8 @@ import InputComponent from "../elements/InputComponent";
 import { storage } from "../../Firebase/firebase";
 import ImageInputComponent from "../elements/ImageInputComponent";
 import { updateResume } from "../../states/userSlice";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PersonalInfo = ({currentPage}) => {
   const data = useSelector((state) => state.user.resumeData.personalInfo);
@@ -37,13 +39,15 @@ const PersonalInfo = ({currentPage}) => {
     setPersonalInfo(newArray);
   }
   const handleNextClick = () => {
-    dispatch(
-      updatePersonalInfo(
-      personalInfo
-      )
-    );
-    currentPage("Links");
-    upload();
+    if(personalInfo.firstName === "" && personalInfo.lastName === "" && personalInfo.phone_number==="" && personalInfo.email_address===""){
+      toast.warn("Please fill all the necessary things");
+    }else{
+      dispatch(updatePersonalInfo(personalInfo));
+      currentPage("Links");
+      if(image){
+        upload();
+      }
+    }
   };
   const updateImage = (e)=>{
     setImage(e.target.files[0])
@@ -64,16 +68,16 @@ const PersonalInfo = ({currentPage}) => {
       <h1 className="text-2xl md:text-4xl font-bold mb-4 md:mb-8 align-middle text-start pl-3 md:pl-10 py-5 bg-green-400 text-gray-100">
         Personal Info
       </h1>
-      <div className="grid sm:grid-cols-2 gap-5 gap-y-3 text-l p-2 pb-4">
+      <form className="grid sm:grid-cols-2 gap-5 gap-y-3 text-l p-2 pb-4">
         <InputComponent
-          labelName={"First Name"}
+          labelName={"First Name *"}
           elname={"firstName"}
           value={personalInfo.firstName}
           updateFunction={updatePersnalInfo}
           idx={""}
         />
         <InputComponent
-          labelName={"Last Name"}
+          labelName={"Last Name *"}
           elname={"lastName"}
           value={personalInfo.lastName}
           updateFunction={updatePersnalInfo}
@@ -87,14 +91,14 @@ const PersonalInfo = ({currentPage}) => {
           idx={""}
         />
         <InputComponent
-          labelName={"Phone Number"}
+          labelName={"Phone Number *"}
           elname={"phone_number"}
           value={personalInfo.phone_number}
           updateFunction={updatePersnalInfo}
           idx={""}
         />
         <InputComponent
-          labelName={"Email Address"}
+          labelName={"Email Address *"}
           elname={"email_address"}
           value={personalInfo.email_address}
           updateFunction={updatePersnalInfo}
@@ -126,8 +130,9 @@ const PersonalInfo = ({currentPage}) => {
           elname={"profilePic"}
           updateFunction={updateImage}
         />
-      </div>
+      </form>
       <ButtonNextPrev handleNextClick={handleNextClick} />
+      <ToastContainer position="top-right" newestOnTop closeOnClick />
     </div>
   );
 };

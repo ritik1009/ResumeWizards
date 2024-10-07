@@ -20,14 +20,13 @@ function App() {
   const [loggedIn,setLoggedIn] = useState(false)
   const currentUser = useSelector((state) => state.user.currentUser);
   useEffect(()=>{
-    console.log("Currrrrrrrrrrr",currentUser)
     if(Object.keys(currentUser).length>1){
       setLoggedIn(true)
     }
   },[currentUser])
   return (
     <Router>
-      <div className="min-h-screen flex justify-between flex-col">
+      <div className="min-h-full flex justify-between flex-col">
         <Navbar />
         <Routes>
           <Route path="/" element={<Navigate replace to="/home" />} />

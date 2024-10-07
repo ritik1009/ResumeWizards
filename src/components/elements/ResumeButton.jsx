@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateId, updateResumeData, updateResumeName } from "../../states/userSlice";
 import { useState } from "react";
-import Template_1 from './../formTemplate/Template_1';
+import { ContactPageOutlined } from "@mui/icons-material";
 const ResumeButton = ({data}) => {
     const [options,setOptions] = useState(false)
     let navigate = useNavigate();
@@ -11,7 +11,7 @@ const ResumeButton = ({data}) => {
 
     // Handle the hover effect
     const changeBcakground = (e)=>{
-      e.target.style.background = "gray"
+      // e.target.style.background = "green"
       e.target.style.color = "white"
     }
     const defaultColor = (e) => {
@@ -79,9 +79,10 @@ const ResumeButton = ({data}) => {
         );
       navigate("/resumeForm");
     }
+    console.log("The Dtaa",data);
   return (
     <div
-      className="h-60 w-52 bg-[#dee2e6] rounded-lg flex justify-center items-center cursor-pointer"
+      className="h-60 w-[95%] mx-auto sm:h-[17rem]  sm:w-56 bg-[#dee2e6] rounded-lg flex justify-center items-center cursor-pointer"
       // onClick={handleClick}
     >
       {!data ? (
@@ -101,20 +102,26 @@ const ResumeButton = ({data}) => {
           />
         </svg>
       ) : (
-        <p
-          className="h-full w-full flex justify-center items-center font-bold"
+        <div
+          className={
+            " h-full w-full text-lg sm:text-lg flex justify-center items-center font-bold group bg-gradient-to-r from-slate-400 to-slate-300 rounded-lg"
+          }
           onClick={() => {
             setOptions(!options);
           }}
         >
           {!options ? (
-            data.name
+            <div className="relative w-[100%] h-[100%] text-center flex justify-center items-center">
+              <p className="scale-100 group-hover:scale-125 transition-all duration-150 z-5">
+                {data.name}
+              </p>
+            </div>
           ) : (
-            <div className="flex flex-col justify-evenly items-center  h-full w-full overflow-hidden rounded-lg">
+            <div className="flex flex-col justify-evenly items-center hover:scale-10  h-full w-full overflow-hidden  rounded-lg relative transition-all duration-150">
               <div
                 onMouseEnter={changeBcakground}
                 onMouseLeave={defaultColor}
-                className="h-full w-full flex justify-center items-center font-bold overflow-hidden"
+                className="h-full w-full flex justify-center items-center font-bold overflow-hidden  border-b-4 border-white transition-all duration-150"
                 onClick={duplicateFunc}
               >
                 Duplicate
@@ -127,9 +134,30 @@ const ResumeButton = ({data}) => {
               >
                 <p className=" font-bold">Edit</p>
               </div>
+              <div
+                className="h-6 w-6 absolute right-0 top-0 m-0 hover:text-white hover:scale-125 hover:rotate-180 transition-all duration-150"
+                onClick={() => {
+                  setOptions(!options);
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18 18 6M6 6l12 12"
+                  />
+                </svg>
+              </div>
             </div>
           )}
-        </p>
+        </div>
       )}
     </div>
   );

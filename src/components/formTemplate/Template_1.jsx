@@ -116,12 +116,13 @@ const Template_1 = ({data}) => {
               },
             ]}
           >
+            {data.personalInfo.profileImage?
             <Image
               src={data.personalInfo.profileImage}
               // src={{uri:dataUri}}
               // src ={dp}
               style={styles.image}
-            ></Image>
+            ></Image>:""}
             <Text
               style={{
                 color: "white",
